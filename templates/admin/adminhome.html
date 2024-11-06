@@ -65,13 +65,13 @@
     <a href="/admin_add_books">Add Books</a>
     <a href="/admin_view_books">View Books</a>
     <a href="/admin_view_user">View and manage User</a>
-    <a href="#">View Booking</a>
-    <a href="#">View Payment Details</a>
-     <a href="#">View Purchased Details </a>
-     <a href="#">View Feedback</a>
-     <a href="#">View Complaint</a>
-     <a href="#">Offline</a>
-     <a href="#">Refund</a>
+    <a href="/admin_view_booking">View Booking</a>
+    <a href="/admin_view_payments">View Payment Details</a>
+     <a href="/view_saled_book">View Saled Book Details </a>
+     <a href="/admin_view_feedbacks">View Feedback</a>
+     <a href="/admin_view_complaints">View Complaint</a>
+     <a href="/view_offline_purchases">Offline</a>
+     <a href="/View_return_request">Return</a>
     <a href="/">Logout</a>
 </div>
 
@@ -127,20 +127,20 @@
     {% endblock %}
 
     <!-- Graphical View of Books and Users per Year -->
-    <div class="row graph-container">
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Books Registered per Year</h5>
-                    <canvas id="booksChart"></canvas>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-6">
-            <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Users Registered per Year</h5>
+{#    <div class="row graph-container">#}
+{#        <div class="col-md-6">#}
+{#            <div class="card">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">Books Registered per Year</h5>#}
+{#                    <canvas id="booksChart"></canvas>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{##}
+{#        <div class="col-md-6">#}
+{#            <div class="card">#}
+{#                <div class="card-body">#}
+{#                    <h5 class="card-title">Users Registered per Year</h5>#}
                     <canvas id="usersChart"></canvas>
                 </div>
             </div>

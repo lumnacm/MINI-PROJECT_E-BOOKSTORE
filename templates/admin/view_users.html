@@ -6,56 +6,50 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>View Books</title>
+    <title>View Users</title>
     <!-- Include Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <style>
-        .card {
-            margin-bottom: 20px;
-        }
-
-        .card img {
-            height: 200px;
-            object-fit: cover;
-        }
-
-        .card-footer {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .btn-edit {
-            margin-right: 10px;
-        }
-    </style>
 </head>
 
 <body>
     <div class="container mt-4">
-        <div class="row">
-            <!-- Example of a Book Card -->
-
-
-
-            {% for i in data %}
-            <div class="col-md-4">
-                <div class="card">
-                    <img src="/media/{{ i.image }}" class="card-img-top" alt="Book Image">
-                    <div class="card-body">
-                        <h2 class="card-title">{{ i.fname }} {{ i.lname }}</h2>
-                        <p class="card-author"> {{ i.gender }}</p>
-                        <p class="card-details"> {{ i.email }}</p>
-{#                        <p class="card-details">{{ i.registerationdate }}</p>#}
-                        <p class="card-details"> {{ i.phonenumber }}</p>
-                        <p>{% if i.LOGIN.type == 'user' %} <a href="/blockuser/{{ i.LOGIN.id }}" class="btn btn-danger">Block</a> {% else %}<a href="/unblockuser/{{ i.LOGIN.id }}" class="btn btn-info">UnBlock</a> {% endif %}</p>
-
-                    </div>
-
-                </div>
-            </div>
-            {% endfor %}
-        </div>
+        <h2 class="mb-4">USER INFORMATIONS</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>
+                        {% if i.image == '/media/user1.jpg' %}
+                            <img src='/media/user1.jpg' alt="User Image" style="height: 50px; object-fit: cover;">
+                        {% else %}
+                            <img src="{{ i.image }}" alt="User Image" style="height: 50px; object-fit: cover;">
+                        {% endif %}
+                    </td>
+                    <td>{{ i.fname }} {{ i.lname }}</td>
+                    <td>{{ i.gender }}</td>
+                    <td>{{ i.email }}</td>
+                    <td>{{ i.phonenumber }}</td>
+                    <td>
+                        {% if i.LOGIN.type == 'user' %}
+                            <a href="/blockuser/{{ i.LOGIN.id }}" class="btn btn-danger btn-sm">Block</a>
+                        {% else %}
+                            <a href="/unblockuser/{{ i.LOGIN.id }}" class="btn btn-info btn-sm">Unblock</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
     </div>
 
     <!-- Include Bootstrap JS and dependencies -->

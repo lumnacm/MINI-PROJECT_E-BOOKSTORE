@@ -7,9 +7,7 @@ class Login(models.Model):
     type=models.CharField(max_length=100)
 
 class Category(models.Model):
-
     category = models.CharField(max_length=50)
-
 
 class User(models.Model):
     LOGIN=models.ForeignKey(Login,on_delete=models.CASCADE)
@@ -37,21 +35,14 @@ class Book(models.Model):
     description = models.CharField(max_length=1000)
 
 
-class Bill(models.Model):
-    USER = models.ForeignKey(User, on_delete=models.CASCADE)
-    amount = models.FloatField()
-    date = models.DateField()
-    status = models.CharField(max_length=20)
-    Type = models.CharField(max_length=100)
-
 class Order(models.Model):
     USER = models.ForeignKey(User, on_delete=models.CASCADE)
-    price = models.FloatField()
+    price = models.IntegerField()
     date = models.DateField()
     place = models.CharField(max_length=20)
     pin = models.CharField(max_length=20)
     landmark = models.CharField(max_length=20)
-    address = models.CharField(max_length=20)
+    address = models.CharField(max_length=100)
     status = models.CharField(max_length=20)
 
 
@@ -59,16 +50,29 @@ class Bill_details(models.Model):
     ORDER = models.ForeignKey(Order, on_delete=models.CASCADE)
     BOOK = models.ForeignKey(Book, on_delete=models.CASCADE)
     quantity = models.IntegerField()
+    status=models.CharField(max_length=100,default="pending")
+    reason=models.CharField(max_length=500,default="pending")
 
+class Bill(models.Model):
+    USER = models.ForeignKey(User, on_delete=models.CASCADE)
+    amount = models.FloatField()
+    date = models.DateField()
+    status = models.CharField(max_length=20)
+    Type = models.CharField(max_length=100)
 
 class Review(models.Model):
     USER = models.ForeignKey(User, on_delete=models.CASCADE)
     BOOK = models.ForeignKey(Book, on_delete=models.CASCADE)
-    date = models.DateField()
-    review = models.CharField(max_length=20)
+    date = models.DateField(auto_now=True)
     rating = models.CharField(max_length=20)
+    ORDER = models.ForeignKey(Bill_details,on_delete=models.CASCADE)
 
-
+class Feedback(models.Model):
+    USER = models.ForeignKey(User, on_delete=models.CASCADE)
+    BOOK = models.ForeignKey(Book, on_delete=models.CASCADE)
+    date = models.DateField(auto_now=True)
+    feedback = models.CharField(max_length=20)
+    ORDER = models.ForeignKey(Bill_details,on_delete=models.CASCADE)
 
 class Complaints(models.Model):
     USER=models.ForeignKey(User,on_delete=models.CASCADE,default='')
@@ -76,9 +80,17 @@ class Complaints(models.Model):
     date=models.DateField()
     reply=models.CharField(max_length=400)
 
-
-class Feedback(models.Model):
-    USER = models.ForeignKey(User, on_delete=models.CASCADE)
-    BOOK = models.ForeignKey(Book, on_delete=models.CASCADE)
+class Payment(models.Model):
+    ORDER = models.ForeignKey(Order, on_delete=models.CASCADE)
     date = models.DateField()
-    feedback = models.CharField(max_length=20)
+    time = models.CharField(max_length=200)
+    status = models.CharField(max_length=20)
+
+class OfflinePurchaser(models.Model):
+    BOOK = models.ForeignKey(Book, on_delete=models.CASCADE)
+    name = models.CharField(max_length=40)
+    number = models.BigIntegerField()
+    qty = models.IntegerField()
+    date = models.DateField()
+    place = models.TextField()
+
