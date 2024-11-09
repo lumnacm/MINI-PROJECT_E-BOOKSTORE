@@ -1,0 +1,79 @@
+{% extends 'admin/adminhome.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Books</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .btn-view-more {
+            margin-top: 5px;
+        }
+
+        .table th, .table td {
+            vertical-align: middle;
+        }
+
+        .price {
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body>
+<form action="/admin_search_books" method="post" class="d-flex search-header ms-lg-2 mb-4">
+    {% csrf_token %}
+    <input class="form-control" name="a" type="search" placeholder="What are you looking for..." aria-label="Search" required>
+    <button class="btn btn-dark" type="submit"><i class="fas fa-search"></i></button>
+</form>
+
+<div class="container mt-4">
+    <h2>Books List</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Title</th>
+                <th>Author</th>
+                <th>Published&nbsp;Year</th>
+                <th>ISBN</th>
+                <th>Price</th>
+                <th>Category</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in data %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ i.title }}</td>
+                <td>{{ i.author }}</td>
+                <td>{{ i.publish_year }}</td>
+                <td>{{ i.isbn }}</td>
+                <td>{{ i.price|floatformat:2 }}</td>
+                <td>{{ i.CATEGORY.category }}</td>
+                <td>
+                    <a href="/admin_view_more_book/{{ i.id }}" class="btn btn-info btn-view-more">View More</a>
+                </td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="8" class="text-center">No books found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+
+<!-- Include Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+{% endblock %}

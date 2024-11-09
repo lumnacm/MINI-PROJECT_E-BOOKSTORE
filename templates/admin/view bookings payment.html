@@ -1,0 +1,53 @@
+{% extends 'admin/adminhome.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">PAYMENT DETAILS</h2>
+
+    {% if data %}
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+{#                <th>Image</th>#}
+{#                <th>Title</th>#}
+                <th>User</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Price</th>
+                <th>Status</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in data %}
+            <tr>
+{#                <td align="center">#}
+{#                    <img src="{{ booking.BOOK.image }}" width="100" height="100" alt="{{ booking.BOOK.title }}">#}
+{#                </td>#}
+                <td>{{ booking.ORDER.USER.fname }}<br>{{ booking.ORDER.USER.lname }}<br>{{ booking.ORDER.USER.email }}<br>{{ booking.ORDER.USER.phonenumber }}</td>
+{#                <td>{{ booking.ORDER.USER.fname }} {{ booking.ORDER.USER.lname }}</td>#}
+                <td>{{ booking.date }}</td>
+                <td>{{ booking.time }}</td>
+                <td>{{ booking.ORDER.price }}</td>
+                <td>{{ booking.status }}<br><a href="/admin_view_payments_more/{{ booking.ORDER.id }}">More</a> </td> <!-- Assuming booking.status contains the status information -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No bookings found.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
+{% endblock %}

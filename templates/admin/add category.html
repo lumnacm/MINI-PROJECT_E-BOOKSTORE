@@ -1,0 +1,79 @@
+{% extends 'admin/adminhome.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Category</title>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if there are messages
+            var messages = {{ messages|safe }};
+            if (messages.length > 0) {
+                // Loop through the messages and display alerts
+                messages.forEach(function(message) {
+                    if (message.tags.includes("error")) {
+                        alert(message.message);
+                    }
+                });
+            }
+        });
+    </script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* Custom styling for the form container */
+        .form-container {
+            max-width: 600px;
+            margin: auto;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2 class="text-center">Add New Category</h2>
+<form method="post" action="">{% csrf_token %}
+        <div class="form-group">
+            <label for="category">Category</label>
+            <input type="text" class="form-control" id="category" required name="category" placeholder="Enter category name">
+        </div>
+        <button type="submit" name="submit" class="btn btn-info btn-block">Add Category</button>
+    </form>
+    {% if messages %}
+        <div class="alert-container">
+            {% for message in messages %}
+                <div class="alert {% if message.tags %}alert-{{ message.tags }}{% endif %}" style="color: green">{{ message }}</div>
+            {% endfor %}
+        </div>
+    {% endif %}
+    <!-- Display existing categories in a table -->
+    <table class="table table-bordered mt-3">
+        <thead>
+            <tr>
+                <th>Category</th> <!-- Table header -->
+            </tr>
+        </thead>
+        <tbody>
+            {% for i in cat %}
+            <tr>
+                <td>{{ i.category }}</td> <!-- Each category in a new row -->
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+    <!-- Display messages if any -->
+
+
+    <!-- Form to add a new category -->
+
+</div>
+
+</body>
+</html>
+{% endblock %}

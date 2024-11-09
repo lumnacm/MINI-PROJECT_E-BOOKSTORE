@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore Registration</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/static/lg.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .registration-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 350px;
+            text-align: center;
+        }
+
+        .registration-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .input-group input,
+        .input-group select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .registration-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #28a745;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .registration-button:hover {
+            background-color: #218838;
+        }
+
+        .login-link {
+            margin-top: 20px;
+            color: #555;
+        }
+
+        .login-link a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .login-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error {
+            color: red;
+            font-size: 12px;
+        }
+    </style>
+</head>
+<body>
+    <div class="registration-container">
+        <h2>Register</h2>
+        <form id="registrationForm" method="post" enctype="multipart/form-data">{% csrf_token %}
+            <div class="input-group">
+                <label for="fname">First Name</label>
+                <input type="text" id="fname" name="fname" required>
+                <div id="fnameError" class="error"></div>
+            </div>
+            <div class="input-group">
+                <label for="lname">Last Name</label>
+                <input type="text" id="lname" name="lname" >
+                <div id="lnameError" class="error"></div>
+            </div>
+            <div class="input-group">
+                <label for="gender">Gender</label>
+                <select id="gender" name="gender" required>
+                    <option value="" disabled selected>Select your gender</option>
+                    <option value="Male">Male</option>
+                    <option value="Female">Female</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div id="genderError" class="error"></div>
+            </div>
+            <div class="input-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" pattern="[a-z0-9._]+[@][a-z]+" title="sample@domail.com" required>
+                <div id="emailError" class="error"></div>
+            </div>
+            <div class="input-group">
+                <label for="phonenumber">Phone Number</label>
+                <input type="tel" id="phonenumber" name="phonenumber" pattern="[0-9]{10}" required>
+                <div id="phoneError" class="error"></div>
+            </div>
+            <div class="input-group">
+                <label for="image">Profile Image </label>
+                <input type="file" id="image" name="image" required>
+                <div id="imageError" class="error"></div>
+            </div><div class="input-group">
+                <label for="image">Profile Image </label>
+                <input type="text" id="ps" name="password" required>
+                <div id="ps" class="error"></div>
+            </div>
+            <button type="submit" class="registration-button">Register</button>
+            <p class="login-link">Already have an account? <a href="#">Login</a></p>
+        </form>
+    </div>
+    <script>
+        document.getElementById('registrationForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+
+            let valid = true;
+
+            // First Name Validation
+            const fname = document.getElementById('fname').value.trim();
+            if(fname.length === 0) {
+                valid = false;
+                document.getElementById('fnameError').textContent = "First Name is required.";
+            } else {
+                document.getElementById('fnameError').textContent = "";
+            }
+
+            // Last Name Validation
+            const lname = document.getElementById('lname').value.trim();
+            if(lname.length === 0) {
+                valid = false;
+                document.getElementById('lnameError').textContent = "Last Name is required.";
+            } else {
+                document.getElementById('lnameError').textContent = "";
+            }
+
+            // Gender Validation
+            const gender = document.getElementById('gender').value;
+            if(gender === "") {
+                valid = false;
+                document.getElementById('genderError').textContent = "Gender is required.";
+            } else {
+                document.getElementById('genderError').textContent = "";
+            }
+
+            // Email Validation
+            const email = document.getElementById('email').value.trim();
+            const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if(!emailPattern.test(email)) {
+                valid = false;
+                document.getElementById('emailError').textContent = "Invalid email address.";
+            } else {
+                document.getElementById('emailError').textContent = "";
+            }
+
+            // Phone Number Validation
+            const phone = document.getElementById('phonenumber').value.trim();
+            const phonePattern = /^[0-9]{10}$/;
+            if(!phonePattern.test(phone)) {
+                valid = false;
+                document.getElementById('phoneError').textContent = "Invalid phone number. Must be 10 digits.";
+            } else {
+                document.getElementById('phoneError').textContent = "";
+            }
+
+            // Image URL Validation
+            const image = document.getElementById('image').value.trim();
+            if(image.length === 0) {
+                valid = false;
+                document.getElementById('imageError').textContent = "Profile Image URL is required.";
+            } else {
+                document.getElementById('imageError').textContent = "";
+            }
+
+            if(valid) {
+                // Form is valid, submit the form
+                alert("Registration successful!");
+                this.submit();
+            }
+        });
+    </script>
+</body>
+</html>

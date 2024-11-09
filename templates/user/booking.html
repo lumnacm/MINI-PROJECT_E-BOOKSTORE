@@ -1,0 +1,417 @@
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <title>Booking Form</title>#}
+{#    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">#}
+{#    <style>#}
+{#        body {#}
+{#            background-color: #ffffff; /* White background */#}
+{#        }#}
+{##}
+{#        .booking-form {#}
+{#            background-color: #ffffff; /* White form background */#}
+{#            padding: 30px;#}
+{#            border-radius: 8px;#}
+{#            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */#}
+{#            max-width: 600px;#}
+{#            margin: 50px auto;#}
+{#            transition: transform 0.3s ease-in-out;#}
+{#            border: 1px solid #eaeaea; /* Light grey border */#}
+{#        }#}
+{##}
+{#        .booking-form:hover {#}
+{#            transform: scale(1.02);#}
+{#        }#}
+{##}
+{#        .form-title {#}
+{#            margin-bottom: 20px;#}
+{#            font-size: 24px;#}
+{#            text-align: center;#}
+{#            color: #333333; /* Darker text color */#}
+{#            font-weight: bold;#}
+{#        }#}
+{##}
+{#        .submit-button {#}
+{#            background-color: #007bff; /* Bootstrap primary color */#}
+{#            color: white;#}
+{#            border: none;#}
+{#            padding: 12px 20px;#}
+{#            font-size: 16px;#}
+{#            border-radius: 4px;#}
+{#            cursor: pointer;#}
+{#            transition: background-color 0.3s, transform 0.2s;#}
+{#        }#}
+{##}
+{#        .submit-button:hover {#}
+{#            background-color: #0056b3; /* Darker blue on hover */#}
+{#            transform: scale(1.05);#}
+{#        }#}
+{##}
+{#        .form-control {#}
+{#            border-radius: 5px;#}
+{#            border: 1px solid #cccccc; /* Light grey border */#}
+{#        }#}
+{##}
+{#        .form-control:focus {#}
+{#            box-shadow: none;#}
+{#            border-color: #007bff; /* Blue border on focus */#}
+{#        }#}
+{##}
+{#        .invalid-feedback {#}
+{#            color: #dc3545; /* Red error message */#}
+{#        }#}
+{##}
+{#        .progress {#}
+{#            height: 20px;#}
+{#            margin-top: 20px;#}
+{#        }#}
+{##}
+{#        .modal-header, .modal-footer {#}
+{#            border: none;#}
+{#        }#}
+{##}
+{#        .modal-body {#}
+{#            font-size: 18px;#}
+{#            color: #28a745; /* Success green color */#}
+{#            text-align: center;#}
+{#        }#}
+{##}
+{#        .modal-footer .btn {#}
+{#            background-color: #007bff;#}
+{#            border: none;#}
+{#        }#}
+{##}
+{#        /* Responsive adjustments */#}
+{#        @media (max-width: 768px) {#}
+{#            .booking-form {#}
+{#                margin: 20px;#}
+{#                padding: 20px;#}
+{#            }#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{#<div class="container">#}
+{##}
+{#    <div class="booking-form">#}
+{#        <h2 class="form-title">BOOKING DETAILS</h2>#}
+{#        <form method="post" action="/user_booking_post" id="bookingForm" novalidate>#}
+{#            {% csrf_token %}#}
+{##}
+{#            <div class="form-group">#}
+{#                <label for="place">Place</label>#}
+{#                <input type="text" required name="place" class="form-control" id="place" minlength="4"#}
+{#                       title="Place must be more than 3 characters long.">#}
+{#                <div class="invalid-feedback">Please enter a valid place (minimum 4 characters).</div>#}
+{#            </div>#}
+{##}
+{#            <div class="form-group">#}
+{#                <label for="landmark">Landmark</label>#}
+{#                <input type="text" required name="landmark" class="form-control" id="landmark" minlength="4"#}
+{#                       title="Landmark must be more than 3 characters long.">#}
+{#                <div class="invalid-feedback">Please enter a valid landmark (minimum 4 characters).</div>#}
+{#            </div>#}
+{##}
+{#            <div class="form-group">#}
+{#                <label for="pin">PIN Code</label>#}
+{#                <input type="text" required name="pin" class="form-control" id="pin" pattern="\d{6}"#}
+{#                       title="PIN Code must be 6 digits.">#}
+{#                <div class="invalid-feedback">Please enter a valid 6-digit PIN code.</div>#}
+{#            </div>#}
+{##}
+{#            <div class="form-group">#}
+{#                <label for="address">Address</label>#}
+{#                <textarea required name="address" class="form-control" id="address" minlength="11"#}
+{#                          title="Address must be more than 10 characters long." rows="3"></textarea>#}
+{#                <div class="invalid-feedback">Please enter a valid address (minimum 11 characters).</div>#}
+{#            </div>#}
+{##}
+{#            <input type="hidden" required name="id" value="{{ data.id }}">#}
+{##}
+{#            <div class="form-group text-center">#}
+{##}
+{#                <a href="/user_pay_proceed/{{ data.id }}/{{ amt }}"  class="submit-button">{{ reques.session.amt }}Makepayment</a>#}
+{#            </div>#}
+{#        </form>#}
+{#        <!-- Progress Bar -->#}
+{#        <div class="progress" style="display: none;" id="progressBar">#}
+{#            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%;"></div>#}
+{#        </div>#}
+{##}
+{##}
+{##}
+{##}
+{#    </div>#}
+{#</div>#}
+{##}
+{#<div class="back-button-container">#}
+{#            <button class="back-button btn btn-info" onclick="goBack()">Back</button>#}
+{#        </div>#}
+{##}
+{##}
+{#<!-- Modal for Confirmation -->#}
+{#<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">#}
+{#    <div class="modal-dialog" role="document">#}
+{#        <div class="modal-content">#}
+{#            <div class="modal-header">#}
+{#                <h5 class="modal-title" id="confirmationModalLabel">Order Confirmation</h5>#}
+{#                <button type="button" class="close" data-dismiss="modal" aria-label="Close">#}
+{#                    <span aria-hidden="true">&times;</span>#}
+{#                </button>#}
+{#            </div>#}
+{#            <div class="modal-body">#}
+{#                Your order has been successfully placed!#}
+{#            </div>#}
+{#            <div class="modal-footer">#}
+{#                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#</div>#}
+{##}
+{#<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>#}
+{#<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>#}
+{#<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>#}
+{#<script>#}
+{#    $(document).ready(function(){#}
+{#        // Form Validation and Submission#}
+{#        $('#bookingForm').on('submit', function(event){#}
+{#            event.preventDefault(); // Prevent default form submission#}
+{##}
+{#            let form = this;#}
+{##}
+{#            if (form.checkValidity() === false) {#}
+{#                event.stopPropagation();#}
+{#                form.classList.add('was-validated');#}
+{#            } else {#}
+{#                // Show progress bar and confirmation modal#}
+{#                $('#progressBar').fadeIn();#}
+{##}
+{#                setTimeout(() => {#}
+{#                    $('#progressBar').fadeOut();#}
+{#                    $('#confirmationModal').modal('show');#}
+{#                    // Submit the form after confirmation#}
+{#                    setTimeout(() => {#}
+{#                        form.submit();#}
+{#                    }, 2000);#}
+{#                }, 1500);#}
+{#            }#}
+{#        });#}
+{#    });#}
+{##}
+{##}
+{#function goBack() {#}
+{#            window.history.back();#}
+{#        }#}
+{##}
+{#</script>#}
+{#</body>#}
+{#</html>#}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Booking Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        body {
+            background-color: #ffffff; /* White background */
+        }
+
+        .booking-form {
+            background-color: #ffffff; /* White form background */
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1); /* Softer shadow */
+            max-width: 600px;
+            margin: 50px auto;
+            transition: transform 0.3s ease-in-out;
+            border: 1px solid #eaeaea; /* Light grey border */
+        }
+
+        .booking-form:hover {
+            transform: scale(1.02);
+        }
+
+        .form-title {
+            margin-bottom: 20px;
+            font-size: 24px;
+            text-align: center;
+            color: #333333; /* Darker text color */
+            font-weight: bold;
+        }
+
+        .submit-button {
+            background-color: #007bff; /* Bootstrap primary color */
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            font-size: 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+            display: none; /* Initially hidden */
+        }
+
+        .submit-button:hover {
+            background-color: #0056b3; /* Darker blue on hover */
+            transform: scale(1.05);
+        }
+
+        .form-control {
+            border-radius: 5px;
+            border: 1px solid #cccccc; /* Light grey border */
+        }
+
+        .form-control:focus {
+            box-shadow: none;
+            border-color: #007bff; /* Blue border on focus */
+        }
+
+        .invalid-feedback {
+            color: #dc3545; /* Red error message */
+        }
+
+        .progress {
+            height: 20px;
+            margin-top: 20px;
+        }
+
+        .modal-header, .modal-footer {
+            border: none;
+        }
+
+        .modal-body {
+            font-size: 18px;
+            color: #28a745; /* Success green color */
+            text-align: center;
+        }
+
+        .modal-footer .btn {
+            background-color: #007bff;
+            border: none;
+        }
+
+        /* Responsive adjustments */
+        @media (max-width: 768px) {
+            .booking-form {
+                margin: 20px;
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/user_home">EDUCITY BOOKSTORE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/user_home">HOME</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user_view_profile">PROFILE</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user_view_orders">ORDERS</a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link" href="/view_cart"><i class="fas fa-shopping-cart"></i>{{ request.session.cid }} CART</a> <!-- Cart Icon -->
+            </li>
+        </ul>
+    </div>
+</nav>
+ <form method="post" action="/user_booking_post1" id="bookingForm" >
+            {% csrf_token %}
+
+<div class="container">
+
+    <div class="booking-form">
+        <h2 class="form-title">BOOKING DETAILS</h2>
+
+            <div class="form-group">
+                <label for="place">Place</label>
+                <input type="text" required name="place" class="form-control" id="place" minlength="4"
+                       title="Place must be more than 3 characters long." value="{{ orderad.place }}">
+                <div class="invalid-feedback">Please enter a valid place (minimum 4 characters).</div>
+            </div>
+
+            <div class="form-group">
+                <label for="landmark">Landmark</label>
+                <input type="text" value="{{ orderad.landmark }}"required name="landmark" class="form-control" id="landmark" minlength="4"
+                       title="Landmark must be more than 3 characters long.">
+                <div class="invalid-feedback">Please enter a valid landmark (minimum 4 characters).</div>
+            </div>
+
+            <div class="form-group">
+                <label for="pin">PIN Code</label>
+                <input type="text" value="{{ orderad.pin }}"b placeholder="Enter 6 numbers only" required name="pin" class="form-control" id="pin" pattern="\d{6}"
+                       title="PIN Code must be 6 digits.">
+                <div class="invalid-feedback">Please enter a valid 6-digit PIN code.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea required name="address" class="form-control" id="address" minlength="11"
+                          title="Address must be more than 10 characters long." rows="3">{{ orderad.address }}</textarea>
+                <div class="invalid-feedback">Please enter a valid address (minimum 11 characters).</div>
+            </div>
+
+            <input type="hidden" required name="id" value="{{ data.id }}">
+
+{#            <div class="form-group text-center">#}
+                <span style="margin-left: 35%"><input type="submit" value="Make Payment"></span>
+{#                <a href="/user_pay_proceed/{{ data.id }}/{{ amt }}" id="makePaymentLink" class="submit-button">{{ reques.session.amt }} Make Payment</a>#}
+{#            </div>#}
+
+        <!-- Progress Bar -->
+        <div class="progress" style="display: none;" id="progressBar">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%;"></div>
+        </div>
+
+    </div>
+</div>
+ </form>
+<div class="back-button-container text-center" style="margin-top: 20px;"> <button class="back-button btn btn-info" onclick="goBack()">Back</button> </div>
+
+<!-- Modal for Confirmation -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Order Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Your order has been successfully placed!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+
+
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</body>
+</html>

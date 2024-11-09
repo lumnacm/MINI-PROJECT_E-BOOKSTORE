@@ -1,0 +1,52 @@
+{% extends 'admin/adminhome.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Bookings</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">BOOKINGS</h2>
+    {% if bookings %}
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>Image</th>
+                <th>Name</th>
+                <th>Place</th>
+                <th>Price</th>
+                <th>Date&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</th>
+                <th>Address</th>
+                <th>Status</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in bookings %}
+            <tr>
+                <td align="center"><img src="{{ booking.USER.image }}" width="100" height="100" alt="User Image"></td>
+                <td>{{ booking.USER.fname }} {{ booking.USER.lname }}</td>
+                <td>{{ booking.place }}</td>
+                <td>{{ booking.price }}</td>
+                <td>{{ booking.date|date:'Y-m-d' }}</td>
+                <td>{{ booking.address }}<br> {{ booking.landmark }}<br>{{ booking.pin }}</td>
+                <td>{{ booking.status }}</td>
+                <td align="center"><a href="/admin_view_booking1/{{ booking.id }}">View Details</a></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p>No bookings found.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
+{% endblock %}

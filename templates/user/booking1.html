@@ -1,0 +1,141 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart View</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Previous styles remain the same */
+        .stock-warning {
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 10px;
+            display: none;
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navbar remains the same -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/user_home">EDUCITY  BOOKSTORE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/user_home">HOME</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user_view_profile">PROFILE</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user_view_orders">ORDERS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/view_cart">
+                    {{ request.session.cid }}
+                    <i class="fas fa-shopping-cart"></i> CART
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+
+<form method="post" action="/user_booking1">
+    {% csrf_token %}
+    <div class="container mt-4">
+        <h2 class="cart-title text-center">Booking</h2>
+        <div class="row">
+            <div class="col-md-4 mb-4"></div>
+            {% for item in data %}
+            <div class="col-md-4 mb-4">
+                <div class="card">
+                    <img src="{{ item.image }}" class="card-img-top" alt="{{ item.title }}">
+                    <div class="card-body text-center">
+                        <h5 class="card-title">{{ item.title }}</h5>
+                        <p class="card-text">by {{ item.author }}</p>
+                        <p class="card-text price-text">
+                            Base Price: <span class="base-price" data-price="{{ item.price }}">{{ item.price }}0</span><br>
+                            Total Price: <span class="total-price">{{ item.price|floatformat:2 }}</span>
+                        </p>
+                        <p class="card-text">Quantity:
+                            <input type="number" name="qty" value="1" min="1"
+                                   class="form-control w-50 mx-auto quantity-input"
+                                   style="display: inline-block;"
+                                   data-max-stock="{{ item.quantity }}"
+                                   required>
+                        </p>
+                        <p class="stock-warning">Out of stock!</p>
+                        <p class="available-stock">Available Stock: {{ item.quantity }}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center">Your cart is empty.</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="text-center">
+            <input type="submit" value="Proceed to Checkout" class="btn btn-primary" id="checkoutBtn"/>
+        </div>
+    </div>
+</form>
+<div class="back-button-container text-center" style="margin-top: 20px;"> <button class="back-button btn btn-info" onclick="goBack()">Back</button> </div>
+
+
+
+
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+
+    document.addEventListener('DOMContentLoaded', function() {
+        const quantityInputs = document.querySelectorAll('.quantity-input');
+        const checkoutBtn = document.getElementById('checkoutBtn');
+
+        quantityInputs.forEach(input => {
+            const updatePrice = function() {
+                const card = input.closest('.card');
+                const basePrice = parseFloat(card.querySelector('.base-price').dataset.price);
+                const quantity = parseInt(input.value) || 0;
+                const maxStock = parseInt(input.dataset.maxStock);
+                const stockWarning = card.querySelector('.stock-warning');
+
+                // Check if quantity exceeds available stock
+                if (quantity > maxStock || quantity < 1) {
+                    stockWarning.style.display = 'block';
+                    checkoutBtn.disabled = true;
+                    input.classList.add('is-invalid');
+                } else {
+                    stockWarning.style.display = 'none';
+                    checkoutBtn.disabled = false;
+                    input.classList.remove('is-invalid');
+                }
+
+                const totalPrice = (basePrice * quantity).toFixed(2);
+                card.querySelector('.total-price').textContent = totalPrice;
+            };
+
+            // Set max attribute based on available stock
+            input.setAttribute('max', input.dataset.maxStock);
+
+            // Handle both change and input events
+            input.addEventListener('change', updatePrice);
+            input.addEventListener('input', updatePrice);
+        });
+    });
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

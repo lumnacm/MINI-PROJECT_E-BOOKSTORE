@@ -1,0 +1,84 @@
+{% extends 'admin/adminhome.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reply Form</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            padding: 20px;
+        }
+
+        .complaint-form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+            max-width: 600px;
+            margin: 50px auto;
+        }
+
+        .complaint-title {
+            font-size: 28px;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .btn-submit {
+            background-color: #d9534f;
+            color: white;
+            font-size: 16px;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-submit:hover {
+            background-color: #c9302c;
+        }
+
+        .text-center {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="complaint-form-container">
+        <h2 class="complaint-title">Submit Your Reply</h2>
+
+        <form action="/send_complaint_reply_post" method="POST">
+
+                <label style="font-size: 20px;" for="reply-details">Complaint :</label>
+                <span style="color: brown;font-size: 20px;" >{{ complaint.complaints }}</span>
+            <!-- Complaint Description -->
+            <div class="form-group">
+                <label for="reply-details">Complaint Reply:</label>
+                <textarea class="form-control" id="reply-details" name="reply-details" rows="5" placeholder="" required></textarea>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="text-center">
+                <button type="submit" class="btn btn-submit">Submit </button>
+            </div>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
+
+{% endblock %}

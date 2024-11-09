@@ -1,0 +1,56 @@
+{% extends 'admin/adminhome.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Payment details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+<body>
+
+<div class="container mt-5">
+    <h2 class="mb-4">RETURN INFORMATION</h2>
+
+    {% if data %}
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+            <tr>
+                <th>User info</th>
+                <th>Order Date</th>
+                <th>Image</th>
+                <th>Title</th>
+                <th>Total Amount</th>
+                <th>Reason</th>
+                <th>Quantity</th>
+                <th>Accept/Reject</th>
+
+            </tr>
+        </thead>
+        <tbody>
+            {% for booking in data %}
+            <tr>
+            <td>{{booking.name}}</td>
+                <td>{{ booking.orddate }}</td>
+                <td align="center">
+                    <img src="{{ booking.bookimg }}" width="100" height="100" alt="{{ booking.BOOK.title }}">
+                </td>
+                <td>{{ booking.title }}</td>
+                <td>{{ booking.amount }}</td>
+                <td>{{ booking.reason }}</td>
+                <td>{{ booking.qty }}</td>
+                <td><a href="accept_return/{{ booking.id }}">Accept</a> / <a href="reject_return/{{ booking.id }}">Reject</a> </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+        <p>No bookings found.</p>
+    {% endif %}
+</div>
+
+</body>
+</html>
+{% endblock %}

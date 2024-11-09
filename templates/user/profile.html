@@ -1,0 +1,45 @@
+{% extends 'user/userindex2.html' %}
+{% block body %}
+
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Profile</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+{#        body {#}
+{#            background-color: #f8f9fa;#}
+{#        }#}
+        .profile-card {
+{#            margin: 50px auto;#}
+{#            padding: 20px;#}
+{#            background: white;#}
+{#            border-radius: 10px;#}
+{#            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);#}
+{#        }#}
+{#        .profile-img {#}
+{#            width: 150px;#}
+{#            height: 150px;#}
+{#            border-radius: 50%;#}
+{#            object-fit: cover;#}
+{#        }#}
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div class="profile-card text-center">
+        <h2>{{ user.fname }} {{ user.lname }}</h2>
+        <img src="{{ user.image }}" alt="Profile Image" class="profile-img" width="200px" height="200px">
+        <p><strong>Email:</strong> {{ user.email }}</p>
+        <p><strong>Phone Number:</strong> {{ user.phonenumber }}</p>
+        <p><strong>Gender:</strong> {{ user.gender }}</p>
+        <p><strong>Registration Date:</strong> {{ user.registerationdate }}</p>
+        <a href="/user_edit_profile" class="btn btn-primary">edit</a>
+    </div>
+</div>
+
+</body>
+</html>
+{% endblock %}

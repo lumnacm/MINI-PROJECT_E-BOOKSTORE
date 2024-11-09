@@ -1,0 +1,50 @@
+{% extends 'admin/adminhome.html' %}
+
+{% block body %}
+<div class="container mt-4">
+    <h2>OFFLINE PURCHASES</h2>
+
+    <!-- Add New Button -->
+    <div class="mb-3">
+        <a href="/add_offline_purchase" class="btn btn-primary">Add New</a>
+    </div>
+
+    <!-- Offline Purchases Table -->
+    <table class="table table-bordered table-striped">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Book</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Name</th>
+                <th>Phone</th>
+                <th>Date</th>
+                <th>Place</th>
+                <th>Purchased Quantity</th>
+                <th>Avalilable Quantity</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for purchase in ofline %}
+            <tr>
+                <td>{{ forloop.counter }}</td>
+                <td>{{ purchase.BOOK.title }}</td>
+                <td>{{ purchase.BOOK.CATEGORY.category }}</td>
+                <td>{{ purchase.BOOK.price }}</td>
+                <td>{{ purchase.name }}</td>
+                <td>{{ purchase.number }}</td>
+                <td>{{ purchase.date }}</td>
+                <td>{{ purchase.place }}</td>
+                <td>{{ purchase.qty }}</td>
+                <td>{{ purchase.BOOK.quantity }}</td>
+            </tr>
+            {% empty %}
+            <tr>
+                <td colspan="9" class="text-center">No offline purchases found.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

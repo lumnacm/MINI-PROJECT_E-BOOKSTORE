@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Store</title>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+    <style>
+        /* Initially hide the element */
+        .hidden-element {
+            display: none;
+        }
+
+        /* When visible, display the element */
+        .visible-element {
+            display: block;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f4f4; /* Light background */
+            color: #333; /* Dark text color */
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .book-cover {
+            max-width: 150px; /* Set a fixed size for book images */
+            height: auto;
+            border-radius: 4px;
+            transition: transform 0.3s;
+            cursor: pointer; /* Make the image clickable */
+        }
+
+        .book-cover:hover {
+            transform: scale(1.05);
+        }
+
+        .book-title {
+            font-size: 20px;
+            margin: 15px 0;
+            color: #2c3e50; /* Darker title color */
+        }
+
+        .book-author {
+            font-size: 16px;
+            color: #7f8c8d; /* Grey author color */
+        }
+
+        .book-price {
+            font-size: 20px;
+            color: #e74c3c; /* Price color */
+            margin: 10px 0;
+        }
+
+        .book-description {
+            font-size: 14px;
+            color: #333;
+            margin: 10px 0 20px;
+        }
+
+        .buy-button, .buy-now-button {
+            background-color: #3498db; /* Blue for Add to Cart */
+            color: white;
+            border: none;
+            padding: 10px 16px;
+            font-size: 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            margin: 5px;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .buy-now-button {
+            background-color: #e67e22; /* Orange for Buy Now */
+        }
+
+        .buy-button:hover {
+            background-color: #2980b9; /* Darker blue */
+            transform: scale(1.05);
+        }
+
+        .buy-now-button:hover {
+            background-color: #d35400; /* Darker orange */
+            transform: scale(1.05);
+        }
+
+        /* Message styling */
+        #cart-message {
+            color: green;
+            font-weight: bold;
+            text-align: center;
+            margin-top: -50px;
+            display: none;
+        }
+
+        /* Book row styling */
+        .book-row {
+            display: flex;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.9);
+            margin-bottom: 20px;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        .book-info {
+            margin-left: 20px;
+        }
+    </style>
+
+    <script>
+        // Function to toggle visibility
+        function toggleVisibility() {
+            var element = document.getElementById("myElement");
+            if (element.classList.contains("hidden-element")) {
+                element.classList.remove("hidden-element");
+                element.classList.add("visible-element");
+            } else {
+                element.classList.remove("visible-element");
+                element.classList.add("hidden-element");
+            }
+        }
+    </script>
+</head>
+<body>
+
+<!-- Navbar with Cart Icon -->
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/user_home">EDUCITY BOOKSTORE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/user_home">HOME</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user_view_profile">PROFILE</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user_view_orders">ORDERS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/view_cart">
+                    {{ request.session.cid }}
+                    <i class="fas fa-shopping-cart"></i> CART
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container mt-4">
+    <div class="row">
+        {% for book in data %}
+        <div class="col-12 mb-4">
+            <div class="book-row">
+                <img src="{{ book.image }}" class="book-cover" alt="Book Image" data-toggle="modal" data-target="#imageModal" onclick="openImageModal('{{ book.image }}')">
+                <div class="book-info">
+                    <h5 class="book-title">{{ book.title }} </h5>
+                    <p> <a href="" class="btn btn-primary">{{ book.tr }}★</a> {{ book.c }} Ratings </p>
+                    <p class="book-author">by {{ book.author }}</p>
+                    <p class="book-text">Published: {{ book.publish_year }}</p>
+                    <p class="book-text">ISBN: {{ book.isbn }}</p>
+                    <p class="book-text">Language: {{ book.language }}</p>
+                    <p class="book-text">Publisher: {{ book.publisher }}</p>
+                    <p class="book-text">Category: {{ book.CATEGORY.category }}</p>
+                    <p class="book-description">Description: {{ book.description }}</p>
+                    <div class="book-footer text-muted">
+                        Price: <span class="book-price">{{ book.price|floatformat:2 }}</span>
+                    </div>
+                    <div class="mt-2">
+                        <a href="/user_booking/{{ book.id }}" class="buy-button" aria-label="Buy {{ book.title }}">BUY NOW</a>
+                        <a href="/purchase/{{ book.id }}" class="buy-now-button" aria-label="Add {{ book.title }} to Cart" onclick="addToCart(event, '{{ book.id }}', '{{ book.title }}')">ADD TO CART</a>
+                        <button class="back-button btn btn-info" onclick="goBack()">BACK</button>
+                        <a href="javascript:void(0);" onclick="toggleVisibility()" class="buy-button" aria-label="">FEEDBACK</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">No books available.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<div id="myElement" class="hidden-element">
+    <div class="container mt-4">
+        <div class="row">
+            {% for book in f %}
+            <div class="col-12 mb-4">
+                <div class="book-row">
+                    <img src="{{ book.USER.image }}" class="book-cover" alt="Book Image">
+                    <div class="book-info">
+                        <h5 class="book-title">{{ book.USER.fname }} {{ book.USER.lname }} </h5>
+                        <p class="book-author">by {{ book.feedback }}</p>
+                        <p class="book-text">Published: {{ book.date }}</p>
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <p class="text-center">No Feedbacks.</p>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Modal for Enlarged Image -->
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <img id="modalImage" src="" class="img-fluid" alt="Book Image">
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Cart added message -->
+<div id="cart-message">Book added to cart!</div>
+
+<script>
+    function addToCart(event, bookId, bookTitle) {
+        event.preventDefault(); // Prevent the default link behavior
+
+        // Display cart added message
+        var messageElement = document.getElementById('cart-message');
+        messageElement.textContent = " Successfully added to your cart!";
+        messageElement.style.display = 'block';
+
+        // Hide the message after 2 seconds
+        setTimeout(function() {
+            messageElement.style.display = 'none';
+        }, 2000);
+
+        // Redirect to purchase page after a short delay
+        setTimeout(function() {
+            window.location.href = "/purchase/" + bookId; // Redirect to purchase page
+        }, 2000); // Delay of 2 seconds before redirect
+    }
+
+    function goBack() {
+        window.history.back();
+    }
+
+    function openImageModal(imageUrl) {
+        document.getElementById('modalImage').src = imageUrl;
+    }
+</script>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

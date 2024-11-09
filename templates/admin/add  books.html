@@ -1,0 +1,312 @@
+{##}
+{#{% extends 'admin/adminhome.html' %}#}
+{#{% block body %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>Add Book</title>#}
+{#    #}
+{#    <style>#}
+{#        body {#}
+{#            font-family: Arial, sans-serif;#}
+{#            background-color: #f4f4f4;#}
+{#            margin: 0;#}
+{#            padding: 0;#}
+{#            display: flex;#}
+{#            justify-content: center;#}
+{#            align-items: center;#}
+{#            height: 100vh;#}
+{#        }#}
+{##}
+{#        .form-container {#}
+{#            background-color: #fff;#}
+{#            padding: 20px;#}
+{#            border-radius: 8px;#}
+{#            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);#}
+{#            width: 400px;#}
+{#        }#}
+{##}
+{#        .form-container h2 {#}
+{#            margin-top: 0;#}
+{#            color: #333;#}
+{#            text-align: center;#}
+{#        }#}
+{##}
+{#        .form-container table {#}
+{#            width: 100%;#}
+{#        }#}
+{##}
+{#        .form-container th {#}
+{#            text-align: left;#}
+{#            padding-bottom: 10px;#}
+{#            color: #333;#}
+{#            font-weight: normal;#}
+{#        }#}
+{##}
+{#        .form-container td {#}
+{#            padding-bottom: 10px;#}
+{#        }#}
+{##}
+{#        .form-container input[type="text"],#}
+{#        .form-container input[type="number"],#}
+{#        .form-container input[type="date"],#}
+{#        .form-container select {#}
+{#            width: 100%;#}
+{#            padding: 8px;#}
+{#            border: 1px solid #ccc;#}
+{#            border-radius: 4px;#}
+{#            font-size: 16px;#}
+{#        }#}
+{##}
+{#        .form-container textarea {#}
+{#            width: 100%;#}
+{#            padding: 8px;#}
+{#            border: 1px solid #ccc;#}
+{#            border-radius: 4px;#}
+{#            font-size: 16px;#}
+{#            resize: vertical;#}
+{#        }#}
+{##}
+{#        .form-container input[type="submit"] {#}
+{#            width: 100%;#}
+{#            padding: 10px;#}
+{#            background-color: #007bff;#}
+{#            border: none;#}
+{#            border-radius: 4px;#}
+{#            color: white;#}
+{#            font-size: 16px;#}
+{#            cursor: pointer;#}
+{#            transition: background-color 0.3s ease;#}
+{#        }#}
+{##}
+{#        .form-container input[type="submit"]:hover {#}
+{#            background-color: #0056b3;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#<div class="form-container">#}
+{#    <h2>ADD NEW BOOK</h2>#}
+{#    <form method="post" action="" enctype="multipart/form-data">{% csrf_token %}#}
+{#        <table class="table">#}
+{#            <tr>#}
+{#                <th>Category</th>#}
+{#                <td>#}
+{#                    <select name="category" required class="form-control" required>#}
+{#                        <!-- Populate options dynamically from your categories -->#}
+{#                        <option value="">Select Category</option>#}
+{#                        {% for i in data %}#}
+{#                        <!-- Example options -->#}
+{#                        <option value="{{ i.id }}">{{ i.category }} </option>#}
+{#                        {% endfor %}#}
+{#                    </select>#}
+{#                </td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Title</th>#}
+{#                <td><input type="text"  class="form-control" required name="title" placeholder="Enter Title" pattern="[a-zA-Z:. -]{3,50}"></td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#    <th>Price</th>#}
+{#    <td>#}
+{#        <input type="number" class="form-control" step="0.01" required name="price" placeholder="Enter price" id="priceInput">#}
+{#    </td>#}
+{#</tr><tr>#}
+{#                <th>Isbn</th>#}
+{#                <td><input type="number" class="form-control" required name="isbn" id="isb" placeholder="Enter isbn" pattern="[a-zA-Z0-9]{3,50}"></td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Quantity</th>#}
+{#                <td><input type="number" class="form-control" required id="qty" name="quantity" placeholder="Enter quantity"></td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Author</th>#}
+{#                <td><input type="text" class="form-control" required name="author" maxlength="20" placeholder="Enter author" pattern="[a-zA-Z .]{3,50}"></td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Publish Date</th>#}
+{#                <td><input type="date" class="form-control" required name="publish_year"  max="{{ d }}"></td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Language</th>#}
+{#                <td><input type="text" class="form-control" required name="language" maxlength="100" placeholder="Enter language" pattern="[a-zA-Z]{3,50}"></td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Publisher</th>#}
+{#                <td><input type="text" class="form-control" required name="publisher" maxlength="100" placeholder="Enter publisher" pattern="[a-zA-Z &.]{3,50}"></td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Image </th>#}
+{#                <td><input type="file" class="form-control" required name="image" maxlength="400" placeholder="Enter image URL"></td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <th>Description</th>#}
+{#                <td><textarea required class="form-control" name="description" maxlength="400" rows="4" placeholder="Enter description"></textarea></td>#}
+{#            </tr>#}
+{#            <tr>#}
+{#                <td colspan="2">#}
+{#                    <input type="submit" class="btn btn-info" name="submit" value="Add Book">#}
+{#                </td>#}
+{#            </tr>#}
+{#        </table>#}
+{#    </form>#}
+{#</div>#}
+{##}
+{#</body>#}
+{#<script>#}
+{#    document.getElementById('priceInput').addEventListener('keydown', function(event) {#}
+{#        if (event.key === 'e' || event.key === 'E' ||event.key === '-') {#}
+{#            event.preventDefault();#}
+{#        }#}
+{#    });#}
+{#    document.getElementById('isb').addEventListener('keydown', function(event) {#}
+{#        if (event.key === '-' || event.key === 'e') {#}
+{#            event.preventDefault();#}
+{#        }#}
+{#    });#}
+{#    document.getElementById('qty').addEventListener('keydown', function(event) {#}
+{#        if (event.key === '-' || event.key === 'e') {#}
+{#            event.preventDefault();#}
+{#        }#}
+{#    });#}
+{##}
+{#</script>#}
+{#</html>#}
+{#{% endblock %}#}
+
+
+
+{% extends 'admin/adminhome.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Book</title>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>ADD NEW BOOK</h2>
+    <form method="post" action="" enctype="multipart/form-data" id="addBookForm">{% csrf_token %}
+        <table class="table">
+            <tr>
+                <th>Category</th>
+                <td>
+                    <select name="category" required class="form-control">
+                        <option value="">Select Category</option>
+                        {% for i in data %}
+                        <option value="{{ i.id }}">{{ i.category }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td><input type="text" autocomplete="off" class="form-control" required name="title" placeholder="Enter Title" pattern="[a-zA-Z:. -]{3,50}"></td>
+            </tr>
+            <tr>
+                <th>Price</th>
+                <td><input type="number" autocomplete="off" class="form-control" step="0.01" required name="price" placeholder="Enter price" id="priceInput"></td>
+            </tr>
+{#            <tr>#}
+{#                <th>Isbn</th>#}
+{#                <td><input type="number" class="form-control" required name="isbn" id="isb" placeholder="Enter isbn" pattern="[a-zA-Z0-9]{3,13}"></td>#}
+{#            </tr>#}
+           <tr>
+    <th>Isbn</th>
+    <td>
+        <input type="text" class="form-control" required name="isbn" id="isb"
+               placeholder="Enter ISBN"
+               pattern="[0-9]{13}"
+               title="ISBN must be exactly 13 characters " autocomplete="off">
+    </td>
+</tr>
+
+            <tr>
+                <th>Quantity</th>
+                <td><input type="number" autocomplete="off" class="form-control" required id="qty" name="quantity" placeholder="Enter quantity"></td>
+            </tr>
+            <tr>
+                <th>Author</th>
+                <td><input type="text" autocomplete="off" class="form-control" required name="author" maxlength="20" placeholder="Enter author" pattern="[a-zA-Z .]{3,50}"></td>
+            </tr>
+            <tr>
+                <th>Publish Date</th>
+                <td><input type="date" autocomplete="off" class="form-control" required name="publish_year" max="{{ d }}"></td>
+            </tr>
+            <tr>
+                <th>Language</th>
+                <td><input type="text" autocomplete="off" class="form-control" required name="language" maxlength="100" placeholder="Enter language" pattern="[a-zA-Z]{3,50}"></td>
+            </tr>
+            <tr>
+                <th>Publisher</th>
+                <td><input type="text" autocomplete="off" class="form-control" required name="publisher" maxlength="100" placeholder="Enter publisher" pattern="[a-zA-Z &.]{3,50}"></td>
+            </tr>
+            <tr>
+                <th>Image</th>
+                <td><input type="file" class="form-control" required name="image" maxlength="400"></td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td><textarea required autocomplete="off" class="form-control" name="description" maxlength="400" rows="4" placeholder="Enter description"></textarea></td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="submit" class="btn btn-info" name="submit" value="Add Book">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+    <div id="success-message" style="display:none; color: green; text-align: center; margin-bottom: 15px;">Book added successfully!</div>
+
+
+</body>
+<script>
+    document.getElementById('addBookForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        var formData = new FormData(this); // Gather the form data
+
+        // Send the form data via fetch API
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById('success-message').style.display = 'block'; // Show success message
+                this.reset(); // Reset the form
+            } else {
+                alert('Failed to add the book. Please try again.'); // Handle errors
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while adding the book.'); // Catch any fetch errors
+        });
+    });
+
+    document.getElementById('priceInput').addEventListener('keydown', function(event) {
+        if (event.key === 'e' || event.key === 'E' || event.key === '-') {
+            event.preventDefault();
+        }
+    });
+    document.getElementById('isb').addEventListener('keydown', function(event) {
+        if (event.key === '-' || event.key === 'e') {
+            event.preventDefault();
+        }
+    });
+    document.getElementById('qty').addEventListener('keydown', function(event) {
+        if (event.key === '-' || event.key === 'e') {
+            event.preventDefault();
+        }
+    });
+</script>
+</html>
+{% endblock %}

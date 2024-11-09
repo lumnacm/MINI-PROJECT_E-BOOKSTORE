@@ -1,0 +1,376 @@
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Books</title>
+    <!-- Google fonts -->
+    <link href="//fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Template CSS Style link -->
+    <link rel="stylesheet" href="/static/public/assets/css/style-starter.css">
+    <!-- Add this CSS -->
+<style>
+    .btn-small-width {
+        display: block;
+        margin: 0 auto;
+        width: 150px; /* Set the desired width */
+    }
+</style>
+      <style>
+        /* Initially hide the element */
+        .hidden-element {
+            display: none;
+        }
+
+        /* When visible, display the element */
+        .visible-element {
+            display: block;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- header -->
+    <header id="site-header" class="fixed-top " >
+        <div class="container">
+            <nav class="navbar navbar-expand navbar-light">
+                <a class="" href="/" style="color: #5f3f3f">
+                                    <img src="/static/icon new.png"  width="50px" height="50px">
+
+
+                                                        EDUCITY BOOK STORE
+
+                </a>
+
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                    <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/">HOME</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/login">LOGIN</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/userreg">REGISTER</a>
+                        </li>
+
+
+
+                    </ul>
+                    <form action="/public_post" method="post" class="d-flex search-header ms-lg-2">{% csrf_token %}
+                        <input class="form-control" name="a" type="search" placeholder="What are you looking for..." aria-label="Search"
+                            required>
+                        <button class="btn btn-dark" type="submit"><i class="fas fa-search"></i></button>
+                </div>
+
+                <!-- toggle switch for light and dark theme -->
+                <div class="cont-ser-position">
+                    <nav class="navigation">
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="checkbox">
+                                <input type="checkbox" id="checkbox">
+                                <div class="mode-container">
+                                    <i class="gg-sun"></i>
+                                    <i class="gg-moon"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </nav>
+
+                </div><div class="cont-ser-position">
+                    <nav class="navigation">
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="checkbox">
+                                <input type="checkbox" id="checkbox">
+                                <div class="mode-container">
+{#                                    <i class="fa fa-shopping-cart text-dark"></i>#}
+{#                                    <i class="gg-moon"></i>#}
+                                </div>
+                            </label>
+                        </div>
+                    </nav>
+
+                </div>
+                <!-- //toggle switch for light and dark theme -->
+
+
+            </nav>
+
+        </div>
+
+
+    </header>
+    <!-- //header -->
+
+
+
+
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+                </div>
+                                </form>
+
+            </div>
+        </div>
+    </section>
+    <!-- //tours slider section -->
+
+
+
+
+
+ <!-- blog section -->
+<div class="w3l-blog-content py-5">
+    <div class="container py-lg-5 py-md-4 py-2">
+        <div class="title-main text-center mx-auto mb-md-5 mb-4" style="max-width:600px;">
+
+            <p >Our Books</p>
+            <h3 class="title-style">Learn more from our latest Books</h3>
+        </div>
+        <div class="row justify-content-center">
+
+            <div class="col-lg-12 col-md-12 mb-4">
+                <div class="blog-grid-1 card h-100 flex-lg-row flex-md-column d-flex">
+                    <div class="card-header p-0 position-relative flex-shrink-0">
+                        <a href="#" class="zoom d-block">
+                            <img class="card-img-left img-fluid" src="{{ i.image }}" width="300px" height="300px" alt="Card image cap">
+                        </a>
+                        <div class="course-price-badge">{{ i.CATEGORY.category }}</div>
+                    </div>
+                    <div class="card-body course-details d-flex flex-column justify-content-between">
+                        <div class="course-meta mb-3">
+                            <div class="meta-item course-students">
+                                <a href="#author">
+                                    <span class="meta-value"></span>   <p> <a href="" class="btn btn-primary">{{ i.tr }}★</a> {{ i.c }} Ratings </p></a>
+                            </div> <div class="meta-item course-students">
+                                <a href="#author"><span class="fas fa-user"></span>
+                                    <span class="meta-value"></span>{{ i.author }}</a>
+                            </div>
+                            <div class="meta-item course-lesson">
+                                <span class="fa fa-heart"></span>
+                                <span class="meta-value"> {{ i.quantity }} </span>
+                            </div>
+                            <div class="meta-item course-students">
+                                <span class="fa fa-calendar"></span>
+                                <span class="meta-value">{{ i.publish_year }}</span>
+                            </div>
+                        </div>
+                        <a href="/" class="course-desc">{{ i.title }}</a>
+
+                        <p class="mt-2">PRICE : {{ i.price }}</p>
+                        <p class="mt-2">ISBN : {{ i.isbn }}</p>
+                        <p class="mt-2">QUANTITY : {{ i.quantity }}</p>
+                        <p class="mt-2">LANGUAGE : {{ i.language }}</p>
+                        <p class="mt-2">PUBLISHER : {{ i.publisher }}</p>
+                        <p class="mt-2">DESCRIPTION : {{ i.description }}</p>
+                        <a href="/" class="btn btn-style btn-small-width mt-4">Go back</a>
+
+                           <a href="javascript:void(0);" onclick="toggleVisibility()"  class="btn btn-style btn-small-width mt-4" aria-label="">Feedback</a>
+
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+<!-- //blog section -->
+
+<div  id="myElement" class="hidden-element">
+<div class="container mt-4">
+    <div class="row">
+        {% for book in f %}
+        <div class="col-12 mb-4">
+            <div class="book-row">
+                <img src="{{ book.USER.image }}" class="book-cover" alt="Book Image" width="200" height="200">
+                <div class="book-info">
+
+
+                    <h5 class="book-title">{{ book.USER.fname }} {{ book.USER.lname }} </h5>
+
+                    <p class="book-author">by {{ book.feedback }}</p>
+                    <p class="book-text">Published: {{ book.date }}</p>
+
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p class="text-center">No Feedbacks.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+    <!-- promocode section -->
+    <!-- //promocode section -->
+</div>
+    <!-- footer -->
+    <footer class="w3l-footer-29-main py-5">
+        <div class="container pt-lg-5 pt-sm-4 pt-2 pb-2">
+            <div class="row footer-top-29">
+                <div class="col-lg-4 col-md-6 footer-list-29">
+                    <h6 class="footer-title-29">Contact Info </h6>
+                    <p class="mb-2 pe-xl-5">Address : Areecode - Manjeri Road
+                        Kavanur,Kerala - 673641.
+                    </p>
+                    <p class="mb-2">Phone Number : <a href="tel:+91 8129858999">+91 8129858999</a></p>
+                    <p class="mb-2">Email : <a href="mailto:info@example.com">EducityBookstore@gmail.com</a></p>
+                    <div class="mt-4">
+{#
+{#                </div>#}
+
+            </div>
+            <!-- copyright -->
+            <p class="copy-footer-29 text-center mt-5 pt-lg-3">© 2024 Educity Bookstore. All rights reserved.
+                 </p>
+        </div>
+            </div>
+        </div>
+    </footer>
+    <!-- //footer -->
+
+    <!-- Js scripts -->
+    <!-- move top -->
+{#   / <button onclick="topFunction()" id="movetop" title="Go to top">#}
+        <span class="fas fa-level-up-alt" aria-hidden="true"></span>
+    </button>
+    <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("movetop").style.display = "block";
+            } else {
+                document.getElementById("movetop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <!-- //move top -->
+
+    <!-- common jquery plugin -->
+    <script src="/static/public/assets/js/jquery-3.3.1.min.js"></script>
+    <!-- //common jquery plugin -->
+
+    <!-- banner slider -->
+    <script src="/static/public/assets/js/slideshow.js"></script>
+    <!-- //banner slider -->
+
+    <!-- for services carousel slider -->
+    <script src="/static/public/assets/js/owl.carousel.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.owl-three').owlCarousel({
+                loop: true,
+                stagePadding: 20,
+                margin: 20,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplaySpeed: 1000,
+                autoplayHoverPause: false,
+                nav: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    991: {
+                        items: 3
+                    },
+                    1200: {
+                        items: 4
+                    }
+                }
+            })
+        })
+    </script>
+    <!-- //for services carousel slider -->
+
+    <!-- counter-->
+    <script src="/static/public/assets/js/counter.js"></script>
+    <!-- //counter-->
+
+    <!-- theme switch js (light and dark)-->
+    <script src="/static/public/assets/js/theme-change.js"></script>
+    <!-- //theme switch js (light and dark)-->
+
+    <!-- MENU-JS -->
+    <script>
+        $(window).on("scroll", function () {
+            var scroll = $(window).scrollTop();
+
+            if (scroll >= 80) {
+                $("#site-header").addClass("nav-fixed");
+            } else {
+                $("#site-header").removeClass("nav-fixed");
+            }
+        });
+
+        //Main navigation Active Class Add Remove
+        $(".navbar-toggler").on("click", function () {
+            $("header").toggleClass("active");
+        });
+        $(document).on("ready", function () {
+            if ($(window).width() > 991) {
+                $("header").removeClass("active");
+            }
+            $(window).on("resize", function () {
+                if ($(window).width() > 991) {
+                    $("header").removeClass("active");
+                }
+            });
+        });
+    </script>
+    <!-- //MENU-JS -->
+
+    <!-- disable body scroll which navbar is in active -->
+    <script>
+        $(function () {
+            $('.navbar-toggler').click(function () {
+                $('body').toggleClass('noscroll');
+            })
+        });
+    </script>
+    <!-- //disable body scroll which navbar is in active -->
+ <script>
+        // Function to toggle visibility
+        function toggleVisibility() {
+            var element = document.getElementById("myElement");
+            if (element.classList.contains("hidden-element")) {
+                element.classList.remove("hidden-element");
+                element.classList.add("visible-element");
+            } else {
+                element.classList.remove("visible-element");
+                element.classList.add("hidden-element");
+            }
+        }
+    </script>
+    <!-- bootstrap -->
+    <script src="/static/public/assets/js/bootstrap.min.js"></script>
+    <!-- //bootstrap -->
+    <!-- //Js scripts -->
+</body>
+
+</html>

@@ -1,0 +1,90 @@
+{% extends 'admin/adminhome.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Users</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h2 class="mb-4">USER INFORMATIONS</h2>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>Image</th>
+                    <th>Name</th>
+                    <th>Gender</th>
+                    <th>Email</th>
+                    <th>Phone Number</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for i in data %}
+                <tr>
+                    <td>
+                        {% if i.image == '/media/user1.jpg' %}
+                            <img src='/media/user1.jpg' alt="User Image" style="height: 50px; object-fit: cover;" data-toggle="modal" data-target="#imageModal" onclick="openImageModal('/media/user1.jpg')">
+                        {% else %}
+                            <img src="{{ i.image }}" alt="User Image" style="height: 50px; object-fit: cover;" data-toggle="modal" data-target="#imageModal" onclick="openImageModal('{{ i.image }}')">
+                        {% endif %}
+                    </td>
+                    <td>{{ i.fname }} {{ i.lname }}</td>
+                    <td>{{ i.gender }}</td>
+                    <td>{{ i.email }}</td>
+                    <td>{{ i.phonenumber }}</td>
+                    <td>
+                        {% if i.LOGIN.type == 'user' %}
+                            <a href="/blockuser/{{ i.LOGIN.id }}" class="btn btn-danger btn-sm">Block</a>
+                        {% else %}
+                            <a href="/unblockuser/{{ i.LOGIN.id }}" class="btn btn-info btn-sm">Unblock</a>
+                        {% endif %}
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <!-- Bootstrap Modal for Enlarged Image -->
+    <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="imageModalLabel">Enlarged User Image</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <img id="modalImage" src="" alt="User Image" class="img-fluid" style="max-height: 500px; width: 100%; object-fit: contain;">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <!-- JavaScript for handling image in modal -->
+    <script>
+        function openImageModal(imageUrl) {
+            var modalImage = document.getElementById('modalImage');
+            modalImage.src = imageUrl;
+        }
+    </script>
+</body>
+
+</html>
+{% endblock %}

@@ -1,0 +1,157 @@
+{% extends 'user/pro.html' %}
+{% block body %}
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+    <title>Edit Profile</title>
+    <style>
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        td {
+            border-bottom: 1px solid #ddd;
+        }
+        th {
+            background-color: #A5966D;
+        }
+        input[type="text"], input[type="file"], select {
+            width: 100%;
+            padding: 8px;
+            margin: 4px 0;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+        input[type="submit"] {
+            background-color: #CFB873;
+            color: white;
+            border: none;
+            padding: 10px 15px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 16px;
+            margin-top: 10px;
+            cursor: pointer;
+            border-radius: 4px;
+        }
+        input[type="submit"]:hover {
+            background-color: #CFB873;
+        }
+    </style>
+    <script>
+        // JavaScript to validate file type and size for image
+        function validateForm() {
+            const fileInput = document.forms["form1"]["file"];
+            const allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+            const maxSize = 2 * 1024 * 1024; // 2 MB
+
+            if (fileInput.value && !allowedExtensions.exec(fileInput.value)) {
+                alert("Please upload a valid image file (JPG, JPEG, PNG, GIF).");
+                fileInput.value = ''; // Reset file input
+                return false;
+            }
+
+            if (fileInput.files[0] && fileInput.files[0].size > maxSize) {
+                alert("Image size must be less than 2 MB.");
+                fileInput.value = ''; // Reset file input
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+{#<nav class="navbar navbar-expand-lg navbar-dark bg-dark"> <!-- Changed to bg-dark for black background -->#}
+{#    <a class="navbar-brand" href="/user_home">EDUCITY BOOKSTORE</a>#}
+{#    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">#}
+{#        <span class="navbar-toggler-icon"></span>#}
+{#    </button>#}
+{#    <div class="collapse navbar-collapse" id="navbarNav">#}
+{#        <ul class="navbar-nav ml-auto">#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="/user_home">HOME</a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="/user_view_profile">PROFILE</a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="/user_view_orders">ORDERS</a>#}
+{#            </li>#}
+{#            <li class="nav-item">#}
+{#                <a class="nav-link" href="/view_cart">#}
+{#                    {{ request.session.cid }}#}
+{#                    <i class="fas fa-shopping-cart"></i> CART#}
+{#                </a>#}
+{#            </li>#}
+{#        </ul>#}
+{#    </div>#}
+{#</nav>#}
+
+<div class="container py-5 my-5">
+    <form action="/user_edit_profile_post" method="post" enctype="multipart/form-data" name="form1" id="form1" onsubmit="return validateForm()">
+        {% csrf_token %}
+        <table>
+            <tr>
+                <td>First Name</td>
+                <td><input type="text" name="textfield" value="{{ i.fname }}" required pattern="[A-Za-z]+" title="First name must contain only letters" /></td>
+            </tr>
+            <tr>
+                <td>Last Name</td>
+                <td><input type="text" name="lname" value="{{ i.lname }}" /></td>
+            </tr>
+            <tr>
+                <td>Image</td>
+                <td><input type="file" name="file" accept=".jpg, .jpeg, .png, .gif" /></td>
+            </tr>
+            <tr>
+                <td>Phone Number</td>
+                <td><input type="text" name="textfield2" value="{{ i.phonenumber }}" required pattern="^\d{10}$" title="Phone number must be 10 digits" /></td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td><input type="email" name="textfield3" value="{{ i.email }}" required title="Please enter a valid email address" /></td>
+            </tr>
+            <tr>
+                <td>Gender</td>
+                <td>
+                    <select name="gender" required>
+                        <option value="">---SELECT---</option>
+                        <option value="male" {% if i.gender == "male" %} selected {% endif %}>Male</option>
+                        <option value="female" {% if i.gender == "female" %} selected {% endif %}>Female</option>
+                        <option value="other" {% if i.gender == "other" %} selected {% endif %}>Other</option>
+                    </select>
+                </td>
+            </tr>
+        </table>
+        <p><input type="submit" name="submit" style="margin-left: 43%" value="Update" /></p>
+    <div class="col-md-12 text-center">
+                <a href="/user_home" type="button" class="btn btn-info">Back</a>
+            </div>
+    </form>
+</div>
+
+{% endblock %}
+</body>
+</html>

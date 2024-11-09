@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Book Order Summary</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .card {
+            margin: 20px 0;
+        }
+        .card img {
+            width: 200px;
+            height: 200px;
+            object-fit: cover; /* Ensures images have the same size */
+        }
+        .card-body {
+            padding: 10px;
+        }
+        /* Star rating styles */
+        .star-rating {
+            display: flex;
+            flex-direction: row-reverse;
+            justify-content: center;
+        }
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+        .star-rating label {
+            font-size: 2em;
+            color: #ddd;
+            cursor: pointer;
+            margin: 0 0.1em;
+        }
+        .star-rating input[type="radio"]:checked ~ label {
+            color: #f7c508;
+        }
+        .star-rating label:hover,
+        .star-rating label:hover ~ label {
+            color: #f7c508;
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand text-white" href="/user_home">EDUCITY BOOKSTORE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/user_home">HOME</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/user_view_profile">PROFILE</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/user_view_orders">ORDERS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link text-white" href="/view_cart">
+                    {{ request.session.cid }}
+                    <i class="fas fa-shopping-cart"></i> CART
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        {% for i in bill %}
+        <div class="col-md-4">
+            <div class="card">
+                <img src="{{ i.BOOK.image }}" class="card-img-top" alt="Book Image">
+                <div class="card-body">
+                    <h5 class="card-title">Book Name: {{ i.BOOK.title }}</h5>
+                    <p class="card-text"><strong>Price:</strong> ₹{{ i.ORDER.price }}</p>
+                    <p class="card-text"><strong>Quantity:</strong> {{ i.quantity }}</p>
+
+                    {% if feedback_dict.i.BOOK.id %}
+                        <p><strong>Feedback:</strong> {{ feedback_dict.i.BOOK.id }}</p>
+                    {% else %}
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#feedbackModal"
+                                data-book="{{ i.BOOK.id }}">
+                            Add feedback
+                        </button>
+                    {% endif %}
+
+                    {% if rating_dict.i.BOOK.id %}
+                        <p><strong>Rating:</strong> {{ rating_dict.i.BOOK.id }}</p>
+                    {% else %}
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#ratingModal"
+                                data-book="{{ i.BOOK.id }}">
+                            Add rating
+                        </button>
+                    {% endif %}
+
+                    {% if i.status == "pending" %}
+                        <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#reasonModal"
+                                data-book="{{ i.id }}">
+                            Return
+                        </button>
+                    {% else %}
+                        <span class="btn {% if i.status == 'accepted' %}btn-success{% elif i.status == 'rejected' %}btn-danger{% else %}btn-secondary{% endif %} btn-sm">{{ i.status }}</span>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Feedback Modal -->
+<div id="feedbackModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="feedbackModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{% url 'add_feedback' %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="feedbackModalLabel">Add Feedback</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="feedback">Feedback:</label>
+                        <textarea class="form-control" id="feedback" name="feedback" rows="4" required></textarea>
+                    </div>
+                    <input type="hidden" name="book_id" id="bookIdInput">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Reason Modal -->
+<div id="reasonModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="reasonModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="/user_return_product" method="POST">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="reasonModalLabel">Add Reason</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="feedback">Reason:</label>
+                        <textarea class="form-control" id="reason" name="reason" rows="4" required></textarea>
+                    </div>
+                    <input type="hidden" name="book_id" id="reasonInput">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Rating Modal -->
+<div id="ratingModal" class="modal fade" tabindex="-1" role="dialog" aria-labelledby="ratingModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <form action="{% url 'add_rating' %}" method="POST">
+                {% csrf_token %}
+                <div class="modal-header">
+                    <h5 class="modal-title" id="ratingModalLabel">Add Rating</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label for="rating">Rate this book:</label>
+                        <div class="star-rating">
+                            <input type="radio" id="5-stars" name="rating" value="5" />
+                            <label for="5-stars" class="star">&#9733;</label>
+                            <input type="radio" id="4-stars" name="rating" value="4" />
+                            <label for="4-stars" class="star">&#9733;</label>
+                            <input type="radio" id="3-stars" name="rating" value="3" />
+                            <label for="3-stars" class="star">&#9733;</label>
+                            <input type="radio" id="2-stars" name="rating" value="2" />
+                            <label for="2-stars" class="star">&#9733;</label>
+                            <input type="radio" id="1-star" name="rating" value="1" />
+                            <label for="1-star" class="star">&#9733;</label>
+                        </div>
+                    </div>
+                    <input type="hidden" name="book_id" id="ratingBookIdInput">
+                </div>
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Submit</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+<script>
+    $('#feedbackModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var bookId = button.data('book') // Extract book id from data-* attributes
+        var modal = $(this)
+        modal.find('#bookIdInput').val(bookId)
+    });
+
+    $('#ratingModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var bookId = button.data('book') // Extract book id from data-* attributes
+        var modal = $(this)
+        modal.find('#ratingBookIdInput').val(bookId)
+    });
+
+    $('#reasonModal').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var bookId = button.data('book') // Extract book id from data-* attributes
+        var modal = $(this)
+        modal.find('#reasonInput').val(bookId)
+    });
+</script>
+
+</body>
+</html>
+
+
+
+

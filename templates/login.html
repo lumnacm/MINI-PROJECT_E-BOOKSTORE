@@ -1,0 +1,463 @@
+{##}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>Bookstore Login</title>#}
+{#     <link href="//fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">#}
+{#    <link href="//fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">#}
+{#    <!-- Template CSS Style link -->#}
+{#    <link rel="stylesheet" href="/static/public/assets/css/style-starter.css">#}
+{#    <style>#}
+{#        body {#}
+{#            font-family: Arial, sans-serif;#}
+{#            background-image: url('/static/lg.jpg'); /* Replace with your image URL */#}
+{#            background-size: cover;#}
+{#            background-repeat: no-repeat;#}
+{#            background-position: center;#}
+{#            display: flex;#}
+{#            justify-content: center;#}
+{#            align-items: center;#}
+{#            height: 100vh;#}
+{#            margin: 0;#}
+{#        }#}
+{##}
+{#        .login-container {#}
+{#            background-color: rgba(255, 255, 255, 0.9); /* Slightly transparent background */#}
+{#            padding: 20px;#}
+{#            border-radius: 10px;#}
+{#            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);#}
+{#            width: 300px;#}
+{#            text-align: center;#}
+{#        }#}
+{##}
+{#        .login-container h2 {#}
+{#            margin-bottom: 20px;#}
+{#            color: #333;#}
+{#        }#}
+{##}
+{#        .input-group {#}
+{#            margin-bottom: 15px;#}
+{#            text-align: left;#}
+{#        }#}
+{##}
+{#        .input-group label {#}
+{#            display: block;#}
+{#            margin-bottom: 5px;#}
+{#            color: #555;#}
+{#        }#}
+{##}
+{#        .input-group input {#}
+{#            width: 100%;#}
+{#            padding: 10px;#}
+{#            border: 1px solid #ddd;#}
+{#            border-radius: 5px;#}
+{#            box-sizing: border-box;#}
+{#        }#}
+{##}
+{#        .login-button {#}
+{#            width: 100%;#}
+{#            padding: 10px;#}
+{#            background-color: #CFB873;#}
+{#            border: none;#}
+{#            color: white;#}
+{#            border-radius: 5px;#}
+{#            cursor: pointer;#}
+{#        }#}
+{##}
+{#        .login-button:hover {#}
+{#            background-color: #CFB873;#}
+{#        }#}
+{##}
+{#        .signup-link {#}
+{#            margin-top: 20px;#}
+{#            color: #555;#}
+{#        }#}
+{##}
+{#        .signup-link a {#}
+{#            color: #007BFF;#}
+{#            text-decoration: none;#}
+{#        }#}
+{##}
+{#        .signup-link a:hover {#}
+{#            text-decoration: underline;#}
+{#        }#}
+{#    </style>#}
+{#</head>#}
+{#<body>#}
+{##}
+{#  <header id="site-header" class="fixed-top " >#}
+{#        <div class="container">#}
+{#            <nav class="navbar navbar-expand navbar-light">#}
+{#                <a class="" href="/" style="color: #5f3f3f">#}
+{#                                    <img src="/static/icon new.png"  width="50px" height="50px">#}
+{##}
+{##}
+{#                                                        EDUCITY BOOK STORE#}
+{##}
+{#                </a>#}
+{##}
+{#                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"#}
+{#                    data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"#}
+{#                    aria-label="Toggle navigation">#}
+{#                    <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>#}
+{#                    <span class="navbar-toggler-icon fa icon-close fa-times"></span>#}
+{#                </button>#}
+{#                <div class="collapse navbar-collapse" id="navbarScroll">#}
+{##}
+{#                    <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll">#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link active" aria-current="page" href="/public">Home</a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="/login">Login</a>#}
+{#                        </li>#}
+{#                        <li class="nav-item">#}
+{#                            <a class="nav-link" href="/userreg">Register</a>#}
+{#                        </li>#}
+{##}
+{##}
+{##}
+{#                    </ul>#}
+{#                    <form action="/public_post" method="post" class="d-flex search-header ms-lg-2">{% csrf_token %}#}
+{#                        <input class="form-control" name="a" type="search" placeholder="What are you looking for..." aria-label="Search"#}
+{#                            required>#}
+{#                        <button class="btn btn-dark" type="submit"><i class="fas fa-search"></i></button>#}
+{#                    </form></div>#}
+{##}
+{#                <!-- toggle switch for light and dark theme -->#}
+{#                <div class="cont-ser-position">#}
+{#                    <nav class="navigation">#}
+{#                        <div class="theme-switch-wrapper">#}
+{#                            <label class="theme-switch" for="checkbox">#}
+{#                                <input type="checkbox" id="checkbox">#}
+{#                                <div class="mode-container">#}
+{#                                    <i class="gg-sun"></i>#}
+{#                                    <i class="gg-moon"></i>#}
+{#                                </div>#}
+{#                            </label>#}
+{#                        </div>#}
+{#                    </nav>#}
+{##}
+{#                </div><div class="cont-ser-position">#}
+{#                    <nav class="navigation">#}
+{#                        <div class="theme-switch-wrapper">#}
+{#                            <label class="theme-switch" for="checkbox">#}
+{#                                <input type="checkbox" id="checkbox">#}
+{#                                <div class="mode-container">#}
+{#                                    <i class="fa fa-shopping-cart text-dark"></i>#}
+{#                                    <i class="gg-moon"></i>#}
+{#                                </div>#}
+{#                            </label>#}
+{#                        </div>#}
+{#                    </nav>#}
+{##}
+{#                </div>#}
+{#                <!-- //toggle switch for light and dark theme -->#}
+{##}
+{##}
+{#            </nav>#}
+{##}
+{#        </div>#}
+{##}
+{##}
+{#    </header>#}
+{#    <!-- //header -->#}
+{##}
+{##}
+{##}
+{#   <div class="login-container">#}
+{#    <h2>Login Now!</h2>#}
+{##}
+{#    <!-- Success/Error message display -->#}
+{#    {% if messages %}#}
+{#        <div class="messages">#}
+{#            <ul>#}
+{#                {% for message in messages %}#}
+{#                    <li class="{{ message.tags }}">{{ message }}</li>#}
+{#                {% endfor %}#}
+{#            </ul>#}
+{#        </div>#}
+{#    {% endif %}#}
+{##}
+{#    <form id="loginForm" method="post">#}
+{#        {% csrf_token %}#}
+{#        <div class="input-group">#}
+{#            <label for="username">Username</label>#}
+{#            <input type="text" id="username" name="username" required pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" title="Please enter a valid email address">#}
+{#        </div>#}
+{#        <div class="input-group">#}
+{#            <label for="password">Password</label>#}
+{#            <input type="password" id="password" name="password"  title="Password must be at least 6 characters">#}
+{#        </div>#}
+{#        <button type="submit" class="login-button" name="submit">Login</button>#}
+{#        <p class="signup-link">Don't have an account? <a href="/userreg">Sign up</a></p>#}
+{#    </form>#}
+{##}
+{#    <p><a href="/" class="signup-link">Back To Home</a></p>#}
+{#</div>#}
+{##}
+{#</body>#}
+{#</html>#}
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bookstore Login</title>
+    <link href="//fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="/static/public/assets/css/style-starter.css">
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-image: url('/static/lg.jpg');
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .login-container {
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 300px;
+            text-align: center;
+        }
+
+        .login-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 5px;
+            color: #555;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 10px;
+            background-color: #CFB873;
+            border: none;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        .login-button:hover {
+            background-color: #CFB873;
+        }
+
+        .signup-link {
+            margin-top: 20px;
+            color: #555;
+        }
+
+        .signup-link a {
+            color: #007BFF;
+            text-decoration: none;
+        }
+
+        .signup-link a:hover {
+            text-decoration: underline;
+        }
+
+        .error-message {
+            color: red;
+            margin-bottom: 15px;
+        }
+
+
+        .eye-icon {
+            position: absolute;
+            right: 10px;
+            top: 35px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <header id="site-header" class="fixed-top " >
+        <div class="container">
+            <nav class="navbar navbar-expand navbar-light">
+                <a class="" href="/" style="color: #5f3f3f">
+                                    <img src="/static/icon new.png"  width="50px" height="50px">
+
+
+                                                        EDUCITY BOOK STORE
+
+                </a>
+
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                    <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll">
+                        <li class="nav-item">
+{#                            <a class="nav-link active" aria-current="page" href="/public">Home</a>#}
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/login">LOGIN</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/userreg">REGISTER</a>
+                        </li>
+
+
+
+                    </ul>
+                    <form action="/public_post" method="post" class="d-flex search-header ms-lg-2">{% csrf_token %}
+                        <input class="form-control" name="a" type="search" placeholder="What are you looking for..." aria-label="Search"
+                            >
+                        <button class="btn btn-dark" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+
+                <!-- toggle switch for light and dark theme -->
+                <div class="cont-ser-position">
+                    <nav class="navigation">
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="checkbox">
+                                <input type="checkbox" id="checkbox">
+                                <div class="mode-container">
+                                    <i class="gg-sun"></i>
+                                    <i class="gg-moon"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </nav>
+
+                </div>
+                <div class="cont-ser-position">
+<nav class="navigation">
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox">
+            <div class="mode-container">
+                <a href="/login"><i class="fa fa-shopping-cart text-dark"></i></a> <!-- Updated href -->
+                {# <i class="gg-moon"></i> #}
+            </div>
+        </label>
+    </div>
+</nav>
+
+                </div>
+                <!-- //toggle switch for light and dark theme -->
+
+
+            </nav>
+
+        </div>
+
+
+    </header>
+
+<div class="login-container">
+    <h2>Login Now!</h2>
+
+    <!-- Display server-side error if exists -->
+    {% if error %}
+        <div class="error-message">{{ error }}</div>
+    {% endif %}
+
+ <form id="loginForm" method="post" onsubmit="">
+        {% csrf_token %}
+        <div class="input-group">
+            <label for="username">Username</label>
+            <input type="text" id="username" name="username" required>
+        </div>
+        <div class="input-group">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+
+    <!-- Eye icon that toggles visibility of the password -->
+    <span class="eye-icon" onclick="togglePassword()">
+        <i class="fa fa-eye-slash" id="eyeIcon"></i> <!-- Initial state: password hidden -->
+    </span>
+</div>
+        <button type="submit" class="login-button" name="submit">Login</button>
+        <p class="signup-link">Don't have an account? <a href="/userreg">Sign up</a></p>
+    </form>
+    <p><a href="/" class="signup-link">Back To Home</a></p>
+</div>
+
+<script>
+    // Client-side form validation
+    function validateForm() {
+        var username = document.getElementById('username').value;
+        var password = document.getElementById('password').value;
+        var errorMessage = document.getElementById('error-message');
+
+        // Regular expression for validating email
+        var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+        // Check if username is a valid email
+        if (!emailPattern.test(username)) {
+            showErrorMessage("Please enter a valid email address.");
+            return false;
+        }
+
+        // Check if password length is at least 6 characters
+        if (password.length < 6) {
+            showErrorMessage("Password must be at least 6 characters long.");
+            return false;
+        }
+
+        return true;
+    }
+
+    function showErrorMessage(message) {
+        var errorDiv = document.getElementById('error-message');
+        errorDiv.innerText = message;
+        errorDiv.style.display = 'block';
+    }
+
+    // Function to toggle the password visibility
+    function togglePassword() {
+        var passwordInput = document.getElementById('password');
+        var eyeIcon = document.getElementById('eyeIcon');
+
+        // Toggle the input type
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';  // Show password
+            eyeIcon.classList.remove('fa-eye-slash');  // Hide "eye-slash"
+            eyeIcon.classList.add('fa-eye');  // Show "eye"
+        } else {
+            passwordInput.type = 'password';  // Hide password
+            eyeIcon.classList.remove('fa-eye');  // Hide "eye"
+            eyeIcon.classList.add('fa-eye-slash');  // Show "eye-slash"
+        }
+    }
+</script>
+
+</body>
+</html>

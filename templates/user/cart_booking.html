@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cart View</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        /* General Body Styling */
+        body {
+            background-color: #FFFFFF;
+            font-family: 'Arial', sans-serif;
+            padding-bottom: 50px;
+        }
+
+        .cart-title {
+            font-size: 28px;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            font-weight: bold;
+        }
+
+        /* Remove Button Styling */
+        .remove-button {
+            background-color: #e74c3c; /* Red for Remove */
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            font-size: 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s, transform 0.2s;
+        }
+
+        .remove-button:hover {
+            background-color: #c0392b; /* Darker red */
+            transform: scale(1.05);
+        }
+
+        /* Checkout Button */
+        .checkout-btn {
+            background-color: #2ecc71;
+            color: white;
+            font-size: 18px;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 30px;
+            transition: background-color 0.3s, transform 0.2s;
+            margin-top: 20px;
+        }
+
+        .checkout-btn:hover {
+            background-color: #27ae60;
+            transform: scale(1.05);
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Centering Text */
+        .text-center {
+            text-align: center;
+        }
+
+        /* Responsive Table Layout */
+        @media (max-width: 788px) {
+            .table thead {
+                display: none;
+            }
+
+            .table tbody td {
+                display: block;
+                text-align: right;
+                position: relative;
+            }
+
+            .table tbody td::before {
+                content: attr(data-label);
+                position: absolute;
+                left: 0;
+                text-align: left;
+                font-weight: bold;
+            }
+
+            .table tbody td:nth-child(2),
+            .table tbody td:nth-child(3),
+            .table tbody td:nth-child(4),
+            .table tbody td:nth-child(5) {
+                border-top: none;
+            }
+        }
+
+        /* Navbar Custom Styling */
+        .navbar-custom {
+            background-color: #000000; /* Black background */
+        }
+
+        .navbar-custom .nav-link {
+            color: white; /* White text */
+        }
+
+        .navbar-custom .navbar-brand {
+            color: white; /* White text for brand */
+        }
+
+        .navbar-custom .navbar-toggler-icon {
+            background-color: white; /* White icon for toggler */
+        }
+    </style>
+</head>
+<body>
+
+<nav class="navbar navbar-expand-lg navbar-dark navbar-custom">
+    <a class="navbar-brand" href="/user_home">EDUCITY BOOKSTORE</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/user_home">HOME</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user_view_profile">PROFILE</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/user_view_orders">ORDERS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/view_cart">
+                   <i class="fas fa-shopping-cart"></i>CART : {{ car }}
+                </a>
+            </li>
+        </ul>
+    </div>
+</nav>
+<br><br><br>
+ <form method="post" action="/user_booking_post2" id="bookingForm" >
+<div class="container">
+
+    <div class="booking-form">
+        <h2 class="form-title">BOOKING DETAILS</h2>
+
+            {% csrf_token %}
+
+            <div class="form-group">
+                <label for="place">Place</label>
+                <input type="text" required name="place" class="form-control" id="place" minlength="4"
+                       title="Place must be more than 3 characters long.">
+                <div class="invalid-feedback">Please enter a valid place (minimum 4 characters).</div>
+            </div>
+
+            <div class="form-group">
+                <label for="landmark">Landmark</label>
+                <input type="text" required name="landmark" class="form-control" id="landmark" minlength="4"
+                       title="Landmark must be more than 3 characters long.">
+                <div class="invalid-feedback">Please enter a valid landmark (minimum 4 characters).</div>
+            </div>
+
+            <div class="form-group">
+                <label for="pin">PIN Code</label>
+                <input type="text" placeholder="Enter 6 numbers only" required name="pin" class="form-control" id="pin" pattern="\d{6}"
+                       title="PIN Code must be 6 digits.">
+                <div class="invalid-feedback">Please enter a valid 6-digit PIN code.</div>
+            </div>
+
+            <div class="form-group">
+                <label for="address">Address</label>
+                <textarea required name="address" class="form-control" id="address" minlength="11"
+                          title="Address must be more than 10 characters long." rows="3"></textarea>
+                <div class="invalid-feedback">Please enter a valid address (minimum 11 characters).</div>
+            </div>
+
+            <input type="hidden" required name="id" value="{{ request.session.oid }}">
+
+            <div class="form-group text-center">
+                 <input type="submit" value="Make Payment">
+{#                <a style="cursor:pointer;text-decoration: none;color: white" href="/user_pay_proceed/{{ data.id }}/{{ amt }}" id="makePaymentLink" class="submit-button">{{ reques.session.amt }} Make Payment</a>#}
+            </div>
+
+        <!-- Progress Bar -->
+        <div class="progress" style="display: none;" id="progressBar">
+            <div class="progress-bar progress-bar-striped progress-bar-animated" role="progressbar" style="width: 100%;"></div>
+        </div>
+
+    </div>
+</div>
+ </form>
+<div class="back-button-container text-center" style="margin-top: 20px;"> <button class="back-button btn btn-info" onclick="goBack()">Back</button> </div>
+
+<!-- Modal for Confirmation -->
+<div class="modal fade" id="confirmationModal" tabindex="-1" role="dialog" aria-labelledby="confirmationModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="confirmationModalLabel">Order Confirmation</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                Your order has been successfully placed!
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+<script>
+
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,219 @@
+{#{% extends 'admin/adminhome.html' %}#}
+{#{% block body %}#}
+{#<!DOCTYPE html>#}
+{#<html lang="en">#}
+{#<head>#}
+{#    <meta charset="UTF-8">#}
+{#    <meta name="viewport" content="width=device-width, initial-scale=1.0">#}
+{#    <title>Add Data</title>#}
+{##}
+{##}
+{#</head>#}
+{#<body>#}
+{##}
+{#<div class="form-container">#}
+{#    <h2>Update New Data</h2>#}
+{#    <form method="post" action="/admin_edit_books_post" enctype="multipart/form-data">{% csrf_token %}#}
+{#        <table class="table">#}
+{#            <tr>#}
+{#                <th>Category</th>#}
+{#                <td>#}
+{#                    <select name="category" required     class="form-control">#}
+{#                        <option value="">Select Category</option>#}
+{#                        {% for i in data1 %}#}
+{#                        <option value="{{ i.id }}" {% if i.id == data.CATEGORY.id %}selected{% endif %}>{{ i.category }}</option>#}
+{#                        {% endfor %}#}
+{#                    </select>#}
+{#                </td>#}
+{#            </tr>#}
+{##}
+{#            <tr>#}
+{#                <th>Title</th>#}
+{#                <td><input type="text" class="form-control" required name="title" value="{{ data.title }}" placeholder="Enter Title"></td>#}
+{#            </tr>#}
+{##}
+{#            <tr>#}
+{#                <th>Price</th>#}
+{#                <td><input type="number" class="form-control" step="0.01" required name="price" value="{{ data.price }}" placeholder="Enter Price"></td>#}
+{#            </tr><tr>#}
+{#                <th>isbn</th>#}
+{#                <td><input type="number" class="form-control" step="0.01" required name="isbn" value="{{ data.isbn    }}" placeholder="Enter Price"></td>#}
+{#            </tr>#}
+{##}
+{#            <tr>#}
+{#                <th>Quantity</th>#}
+{#                <td><input type="number" class="form-control" required name="quantity" value="{{ data.quantity }}" placeholder="Enter Quantity"></td>#}
+{#            </tr>#}
+{##}
+{#            <tr>#}
+{#                <th>Author</th>#}
+{#                <td><input type="text" class="form-control" required name="author" value="{{ data.author }}" placeholder="Enter Author"></td>#}
+{#            </tr>#}
+{##}
+{#            <tr>#}
+{#                <th>Publish Year</th>#}
+{#                <td><input type="date" class="form-control" required name="publish_year" value="{{ data.publish_year|date:'Y-m-d' }}"></td>#}
+{#            </tr>#}
+{##}
+{#            <tr>#}
+{#                <th>Language</th>#}
+{#                <td><input type="text" class="form-control" required name="language" value="{{ data.language }}" placeholder="Enter Language"></td>#}
+{#            </tr>#}
+{##}
+{#            <tr>#}
+{#                <th>Publisher</th>#}
+{#                <td>#}
+{#                    <input type="hidden" required  name="id" value="{{ data.id }}" placeholder="Enter Publisher">#}
+{#                    <input type="text" class="form-control" required name="publisher" value="{{ data.publisher }}" placeholder="Enter Publisher">#}
+{#                </td>#}
+{#            </tr>#}
+{##}
+{#            <tr>#}
+{#                <th>Image</th>#}
+{#                <td><input type="file"  name="image" class="form-control"><br>#}
+{#                <img src="{{ data.image }}" width="200px" height="200px"> </td>#}
+{#            </tr>#}
+{##}
+{#            <tr>#}
+{#                <th>Description</th>#}
+{#                <td><textarea required name="description" class="form-control" rows="4" placeholder="Enter Description">{{ data.description }}</textarea></td>#}
+{#            </tr>#}
+{##}
+{#            <tr>#}
+{#                <td colspan="2" align="center">#}
+{#                    <input type="submit" name="submit" class="btn btn-info" value="Update">#}
+{#                </td>#}
+{#            </tr>#}
+{#        </table>#}
+{#    </form>#}
+{#</div>#}
+{##}
+{#</body>#}
+{#</html>#}
+{#{% endblock %}#}
+
+
+
+{% extends 'admin/adminhome.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update Data</title>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Update New Data</h2>
+    <form method="post" action="/admin_edit_books_post" enctype="multipart/form-data" id="updateForm">{% csrf_token %}
+        <table class="table">
+            <tr>
+                <th>Category</th>
+                <td>
+                    <select name="category" required class="form-control">
+                        <option value="">Select Category</option>
+                        {% for i in data1 %}
+                        <option value="{{ i.id }}" {% if i.id == data.CATEGORY.id %}selected{% endif %}>{{ i.category }}</option>
+                        {% endfor %}
+                    </select>
+                </td>
+            </tr>
+
+            <tr>
+                <th>Title</th>
+                <td><input type="text" class="form-control" required name="title" value="{{ data.title }}" placeholder="Enter Title"></td>
+            </tr>
+
+            <tr>
+                <th>Price</th>
+                <td><input type="number" class="form-control" step="0.01" required name="price" value="{{ data.price|floatformat:2 }}" placeholder="Enter Price"></td>
+            </tr>
+
+            <tr>
+                <th>ISBN</th>
+                <td><input type="number" class="form-control" required name="isbn" value="{{ data.isbn }}" placeholder="Enter ISBN"></td>
+            </tr>
+
+            <tr>
+                <th>Quantity</th>
+                <td><input type="number" class="form-control" required name="quantity" value="{{ data.quantity }}" placeholder="Enter Quantity"></td>
+            </tr>
+
+            <tr>
+                <th>Author</th>
+                <td><input type="text" class="form-control" required name="author" value="{{ data.author }}" placeholder="Enter Author"></td>
+            </tr>
+
+            <tr>
+                <th>Publish Year</th>
+                <td><input type="date" class="form-control" required name="publish_year" value="{{ data.publish_year|date:'Y-m-d' }}"></td>
+            </tr>
+
+            <tr>
+                <th>Language</th>
+                <td><input type="text" class="form-control" required name="language" value="{{ data.language }}" placeholder="Enter Language"></td>
+            </tr>
+
+            <tr>
+                <th>Publisher</th>
+                <td>
+                    <input type="hidden" required name="id" value="{{ data.id }}">
+                    <input type="text" class="form-control" required name="publisher" value="{{ data.publisher }}" placeholder="Enter Publisher">
+                </td>
+            </tr>
+
+            <tr>
+                <th>Image</th>
+                <td>
+                    <input type="file" name="image" class="form-control"><br>
+                    <img src="{{ data.image }}" width="200px" height="200px">
+                </td>
+            </tr>
+
+            <tr>
+                <th>Description</th>
+                <td><textarea required name="description" class="form-control" rows="4" placeholder="Enter Description">{{ data.description }}</textarea></td>
+            </tr>
+
+            <tr>
+                <td colspan="2" align="center">
+                    <input type="submit" name="submit" class="btn btn-info" value="Update">
+                </td>
+            </tr>
+        </table>
+    </form>
+</div>
+    <div id="success-message" style="display:none; color: green; text-align: center; margin-bottom: 15px;">Book updated successfully!</div>
+
+</body>
+<script>
+    document.getElementById('updateForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+
+        var formData = new FormData(this); // Gather the form data
+
+        // Send the form data via fetch API
+        fetch(this.action, {
+            method: 'POST',
+            body: formData,
+        })
+        .then(response => {
+            if (response.ok) {
+                document.getElementById('success-message').style.display = 'block'; // Show success message
+                setTimeout(function() {
+                    window.location.href = '/admin_view_books'; // Replace with the URL you want to redirect to
+                }, 2000); // Redirect after 2 seconds
+            } else {
+                alert('Failed to update the data. Please try again.'); // Handle errors
+            }
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while updating the data.'); // Catch any fetch errors
+        });
+    });
+</script>
+</html>
+{% endblock %}

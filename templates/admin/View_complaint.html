@@ -1,0 +1,89 @@
+{% extends 'admin/adminhome.html' %}
+{% block body %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complaints</title>
+    <!-- Include Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .card {
+            margin-bottom: 20px;
+            transition: transform 0.2s;
+        }
+
+        .card:hover {
+            transform: scale(1.02);
+        }
+
+        .card img {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .btn-edit {
+            margin-right: 10px;
+        }
+
+        .no-complaints {
+            text-align: center;
+            margin: 20px;
+            font-size: 18px;
+            color: #888;
+        }
+
+        .complaint-title {
+            font-size: 1.5rem;
+            color: #007bff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container mt-4">
+        <h1 class="text-center mb-4">Complaints List</h1>
+        <div class="row">
+            {% if data %}
+                {% for i in data %}
+                <div class="col-md-4">
+                    <div class="card">
+                        <div class="card-body">
+                            <h2 class="card-title complaint-title">{{ i.USER.fname }} {{ i.USER.lname }}</h2>
+                            <p class="card-text"><strong>Complaint:</strong> {{ i.complaints }}</p>
+                            <p class="card-text"><strong>Date:</strong> {{ i.date }}</p>
+                            {% if i.reply == 'pending' %}
+                                <p>
+                                    <a href="send_complaint_reply/{{ i.id }}" class="btn btn-danger">Reply</a>
+                                </p>
+                            {% else %}
+                                <p class="card-text"><strong>Reply:</strong> {{ i.reply }}</p>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <div class="col-12">
+                    <p class="no-complaints">No complaints found.</p>
+                </div>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Include Bootstrap JS and dependencies -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+
+</html>
+{% endblock %}

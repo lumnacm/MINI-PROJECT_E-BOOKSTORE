@@ -1,0 +1,538 @@
+<!--
+Author: W3layouts
+Author URL: http://w3layouts.com
+-->
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Books</title>
+    <!-- Google fonts -->
+    <link href="//fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
+    <link href="//fonts.googleapis.com/css2?family=Ubuntu:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Template CSS Style link -->
+    <link rel="stylesheet" href="/static/public/assets/css/style-starter.css">
+</head>
+
+<body>
+    <!-- header -->
+    <header id="site-header" class="fixed-top " >
+        <div class="container">
+            <nav class="navbar navbar-expand navbar-light">
+                <a class="" href="/" style="color: #5f3f3f">
+                                    <img src="/static/icon new.png"  width="50px" height="50px">
+
+
+                                                        EDUCITY BOOK STORE
+
+                </a>
+
+                <button class="navbar-toggler collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarScroll" aria-controls="navbarScroll" aria-expanded="false"
+                    aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon fa icon-expand fa-bars"></span>
+                    <span class="navbar-toggler-icon fa icon-close fa-times"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarScroll">
+
+                    <ul class="navbar-nav ms-auto my-2 my-lg-0 navbar-nav-scroll">
+                        <li class="nav-item">
+{#                            <a class="nav-link active" aria-current="page" href="/public">Home</a>#}
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/login">LOGIN</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" href="/userreg">REGISTER</a>
+                        </li>
+
+
+
+                    </ul>
+                    <form action="/public_post" method="post" class="d-flex search-header ms-lg-2">{% csrf_token %}
+                        <input class="form-control" name="a" type="search" placeholder="What are you looking for..." aria-label="Search"
+                            required>
+                        <button class="btn btn-dark" type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </div>
+
+                <!-- toggle switch for light and dark theme -->
+                <div class="cont-ser-position">
+                    <nav class="navigation">
+                        <div class="theme-switch-wrapper">
+                            <label class="theme-switch" for="checkbox">
+                                <input type="checkbox" id="checkbox">
+                                <div class="mode-container">
+                                    <i class="gg-sun"></i>
+                                    <i class="gg-moon"></i>
+                                </div>
+                            </label>
+                        </div>
+                    </nav>
+
+                </div>
+                <div class="cont-ser-position">
+<nav class="navigation">
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="checkbox">
+            <input type="checkbox" id="checkbox">
+            <div class="mode-container">
+                <a href="/login"><i class="fa fa-shopping-cart text-dark"></i></a> <!-- Updated href -->
+                {# <i class="gg-moon"></i> #}
+            </div>
+        </label>
+    </div>
+</nav>
+
+                </div>
+                <!-- //toggle switch for light and dark theme -->
+
+
+            </nav>
+
+        </div>
+
+
+    </header>
+    <!-- //header -->
+
+
+
+    <!-- banner section -->
+    <div class="slideshow">
+        <div class="holder">
+            <div class="slide slide-1">
+                <span class="container">
+                    <span class="banner-content">
+                        <h3 style="color: white">Learn & Read </h3>
+                        <p style="color: white;">Discover amzaing Category at exclusive deals.</p>
+                    </span>
+                </span>
+            </div>
+            <div class="slide slide-2">
+                <span class="container">
+                    <span class="banner-content">
+                        <h3 class="mb-2" style="color: white;">Your Journey Begins</h3>
+                        <p style="color: white;">Take advantage of this amazing exclusive offers.</p>
+                    </span>
+                </span>
+            </div>
+            <div class="slide slide-3">
+                <span class="container">
+                    <span class="banner-content">
+                        <h3 style="color: white;">Love and Read</h3>
+                        <p style="color: white;">Discover amzaing Books at exclusive deals.</p>
+                    </span>
+                </span>
+            </div>
+            <div class="slide slide-4">
+                <span class="container">
+                    <span class="banner-content">
+                        <h3 style="color: white;">Live your Adventure</h3>
+                        <p style="color: white;">Take advantage of this amazing exclusive offers.</p>
+                    </span>
+                </span>
+            </div>
+        </div>
+        <div class="steps"></div>
+        <a href="#" class="prev"><i class="fas fa-arrow-left"></i></a>
+        <a href="#" class="next"><i class="fas fa-arrow-right"></i></a>
+    </div>
+    <section class="w3l-index5 pb-5 pt-4">
+        <div class="container-fluid py-lg-5 py-md-4 py-2">
+            <div class="title-main text-center mx-auto mb-md-5 mb-4" style="max-width:600px;">
+                <p>Featured </p>
+                <h3 class="title-style">Most Popular Category</h3>
+            </div>
+            <div class="inner-sec-w3layouts pb-4">
+                <div class="owl-three owl-carousel owl-theme">
+{% for i in data %}
+                    <div class="item">
+                        <div class="content-left-sec">
+                            <a class="blog-link d-block zoom-image" href="#">
+                            </a>
+                            <div class="blog-info">
+                                <ul class="rating-list mb-2">
+                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>
+                                    <li><i class="fas fa-star-half-alt"></i></li>
+                                    <li class="ms-1">4.07</li>
+                                </ul>
+                                <P>Category   :</P>
+                                <a href="#" class="to-title">{{ i.category }}</a>
+{#                                <p class="mt-1"><i class="fas fa-map-marker-alt me-1"></i>Central Park West NY, USA</p>#}
+{#                                <div class="to-price mt-2">#}
+{#                                    <label>From</label> <span>$39.00</span>#}
+{#                                </div>#}
+{#                                <div class="d-flex align-items-center justify-content-between mt-4">#}
+{#                                    <p><i class="far fa-clock me-1"></i>10 Days</p>#}
+{#                                    <a href="tours.html" class="btn btn-style btn-style-primary">Explore<i#}
+{#                                            class="fas fa-arrow-right"></i></a>#}
+{#                                </div>#}
+                            </div>
+                        </div>
+                    </div>
+                    {% endfor %}
+
+{#                    <div class="item">#}
+{#                        <div class="content-left-sec">#}
+{#                            <a class="blog-link d-block zoom-image" href="tours.html"><img src="assets/images/s4.jpg"#}
+{#                                    class="img-fluid scale-image" alt=""></a>#}
+{#                            <div class="blog-info">#}
+{#                                <ul class="rating-list mb-2">#}
+{#                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>#}
+{#                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>#}
+{#                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>#}
+{#                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>#}
+{#                                    <li><i class="fas fa-star-half-alt"></i></li>#}
+{#                                    <li class="ms-1">4.08</li>#}
+{#                                </ul>#}
+{#                                <a href="tours.html" class="to-title">Switzerland – best Zurich </a>#}
+{#                                <p class="mt-1"><i class="fas fa-map-marker-alt me-1"></i>Zermatt, USA</p>#}
+{#                                <div class="to-price mt-2">#}
+{#                                    <label>From</label> <span>$49.00</span>#}
+{#                                </div>#}
+{#                                <div class="d-flex align-items-center justify-content-between mt-4">#}
+{#                                    <p><i class="far fa-clock me-1"></i>7 Days</p>#}
+{#                                    <a href="tours.html" class="btn btn-style btn-style-primary">Explore<i#}
+{#                                            class="fas fa-arrow-right"></i></a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="item">#}
+{#                        <div class="content-left-sec">#}
+{#                            <a class="blog-link d-block zoom-image" href="tours.html"><img src="assets/images/s6.jpg"#}
+{#                                    class="img-fluid scale-image" alt=""></a>#}
+{#                            <div class="blog-info">#}
+{#                                <ul class="rating-list mb-2">#}
+{#                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>#}
+{#                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>#}
+{#                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>#}
+{#                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>#}
+{#                                    <li><i class="fas fa-star-half-alt"></i></li>#}
+{#                                    <li class="ms-1">4.09</li>#}
+{#                                </ul>#}
+{#                                <a href="tours.html" class="to-title">Paris – Eiffel Tower</a>#}
+{#                                <p class="mt-1"><i class="fas fa-map-marker-alt me-1"></i>Northern central France, Paris#}
+{#                                </p>#}
+{#                                <div class="to-price mt-2">#}
+{#                                    <label>From</label> <span>$69.00</span>#}
+{#                                </div>#}
+{#                                <div class="d-flex align-items-center justify-content-between mt-4">#}
+{#                                    <p><i class="far fa-clock me-1"></i>15 Days</p>#}
+{#                                    <a href="tours.html" class="btn btn-style btn-style-primary">Explore<i#}
+{#                                            class="fas fa-arrow-right"></i></a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+{#                    <div class="item">#}
+{#                        <div class="content-left-sec">#}
+{#                            <a class="blog-link d-block zoom-image" href="tours.html"><img src="assets/images/s5.jpg"#}
+{#                                    class="img-fluid scale-image" alt=""></a>#}
+{#                            <div class="blog-info">#}
+{#                                <ul class="rating-list mb-2">#}
+{#                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>#}
+{#                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>#}
+{#                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>#}
+{#                                    <li><i class="fas fa-star" aria-hidden="true"></i></li>#}
+{#                                    <li><i class="fas fa-star-half-alt"></i></li>#}
+{#                                    <li class="ms-1">4.06</li>#}
+{#                                </ul>#}
+{#                                <a href="tours.html" class="to-title">America – Lake Tahoe</a>#}
+{#                                <p class="mt-1"><i class="fas fa-map-marker-alt me-1"></i>Figueroa Mountain Road, USA#}
+{#                                </p>#}
+{#                                <div class="to-price mt-2">#}
+{#                                    <label>From</label> <span>$59.00</span>#}
+{#                                </div>#}
+{#                                <div class="d-flex align-items-center justify-content-between mt-4">#}
+{#                                    <p><i class="far fa-clock me-1"></i>12 Days</p>#}
+{#                                    <a href="tours.html" class="btn btn-style btn-style-primary">Explore<i#}
+{#                                            class="fas fa-arrow-right"></i></a>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    </div>#}
+                </div>
+                                </form>
+
+            </div>
+        </div>
+    </section>
+    <!-- //tours slider section -->
+
+
+
+
+
+    <!-- blog section -->
+   <div class="w3l-blog-content py-5" id="a">
+    <div class="container py-lg-5 py-md-4 py-2">
+        <div class="title-main text-center mx-auto mb-md-5 mb-4" style="max-width:600px;">
+            <p>Our BookS</p>
+            <h3 class="title-style">Learn more from our latest Books</h3>
+        </div>
+        <div class="row justify-content-center">
+            {% for i in data1 %}
+            <div class="col-lg-4 col-md-6">
+                <div class="blog-grid-1"> <!-- Removed inline styles for width and height -->
+                    <div class="card-header p-0 position-relative">
+                        <a href="#" class="zoom d-block">
+                            <img class="card-img-bottom d-block" src="{{ i.image }}" width="100%" height="200px" alt="Card image cap" style="object-fit: cover;">
+                        </a>
+{#                        <div class="course-price-badge">{{ i.price }}</div><br>#}
+                        <div class="course-price-badge">{{ i.CATEGORY.category }}</div>
+                    </div>
+                    <div class="card-body course-details" style="flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                        <div class="course-meta mb-3">
+                            <div class="meta-item course-students">
+                                <a href="#author"><span class="fas fa-user"></span>
+                                    <span class="meta-value"></span>{{ i.author }}</a>
+                            </div>
+                            <div class="meta-item course-lesson">
+                                <span class="fa fa-heart"></span>
+                                <span class="meta-value"> {{ i.quantity }} </span>
+                            </div>
+                            <div class="meta-item course-students">
+                                <span class="fa fa-calendar"></span>
+                                <span class="meta-value">{{ i.publish_year }}</span>
+                            </div>
+                        </div>
+                        <a href="/" class="course-desc" style="overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">{{ i.title }}</a>
+                        <a href="/viewmorebook/{{ i.id }}" class="btn btn-style mt-4">Read more</a>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+         <div class="col-lg-12 col-md-6">
+             <div align="center"><a href="/public1#a"  class="btn btn-style mt-4">View More</a> </div>
+         </div>
+
+{#        <tr>#}
+{#                <td colspan="9">#}
+{#                     <div class="pagination" style="{width:100%;}">#}
+{#        <span class="step-links">#}
+{#            {% if page_obj.has_previous %}#}
+{#                <a href="?page=1">&laquo; first</a>#}
+{#                <a href="?page={{ page_obj.previous_page_number }}">previous</a>#}
+{#            {% endif %}#}
+{##}
+{#            <span class="current">#}
+{#                Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.#}
+{#            </span>#}
+{##}
+{#            {% if page_obj.has_next %}#}
+{#                <a href="?page={{ page_obj.next_page_number }}">next</a>#}
+{#                <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>#}
+{#            {% endif %}#}
+        </span>
+                         <span class="step-links"></span>
+                         <span class="step-links"></span>
+    </div>
+                </td>
+            </tr>
+        </div>
+    </div>
+</div>
+
+<style>
+    .blog-grid-1 {
+        width: 300px; /* Fixed width */
+        height: 450px; /* Fixed height */
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        margin-bottom: 20px; /* Adjust margin for spacing between cards */
+    }
+</style>
+
+
+    <!-- //blog section -->
+
+    <!-- promocode section -->
+    <!-- //promocode section -->
+
+    <!-- footer -->
+    <footer class="w3l-footer-29-main py-5">
+        <div class="container pt-lg-5 pt-sm-4 pt-2 pb-2">
+            <div class="row footer-top-29">
+                <div class="col-lg-4 col-md-6 footer-list-29">
+                    <h6 class="footer-title-29">Contact Info </h6>
+                    <p class="mb-2 pe-xl-5">Address : Areecode - Manjeri Road
+                        Kavanur,Kerala - 673641.
+                    </p>
+                    <p class="mb-2">Phone Number : <a href="tel:+91 8129858999">+91 8129858999</a></p>
+                    <p class="mb-2">Email : <a href="mailto:info@example.com">EducityBookstore@gmail.com</a></p>
+                    <div class="mt-4">
+{#                        <ul class="social">#}
+{#                            <li><a href="#"><i class="fab fa-facebook-f"></i></a>#}
+{#                            </li>#}
+{#                            <li><a href="#"><i class="fab fa-linkedin-in"></i></a>#}
+{#                            </li>#}
+{#                            <li><a href="#"><i class="fab fa-twitter"></i></a>#}
+{#                            </li>#}
+{#                            <li><a href="#"><i class="fab fa-google-plus-g"></i></a>#}
+{#                            </li>#}
+{#                            <li><a href="#"><i class="fab fa-github"></i></a>#}
+{#                            </li>#}
+{#                        </ul>#}
+{#                    </div>#}
+{#                </div>#}
+{#                <div class="col-lg-2 col-md-3 col-6 footer-list-29 mt-md-0 mt-4">#}
+{#                    <ul>#}
+{#                        <h6 class="footer-title-29">Quick Links</h6>#}
+{#                        <li><a href="#">About Us</a></li>#}
+{#                        <li><a href="#">Services</a></li>#}
+{#                        <li><a href="#">Work with us</a></li>#}
+{#                        <li><a href="#">Contact Us</a></li>#}
+{#                        <li><a href="#">Rewards</a></li>#}
+{#                    </ul>#}
+{#                </div>#}
+{#                <div class="col-lg-2 col-md-3 col-6 ps-lg-5 ps-lg-4 footer-list-29 mt-md-0 mt-4">#}
+{#                    <ul>#}
+{#                        <h6 class="footer-title-29">Explore</h6>#}
+{#                        <li><a href="#">Blog Posts</a></li>#}
+{#                        <li><a href="#">Privacy policy</a></li>#}
+{#                        <li><a href="#">Our Partners</a></li>#}
+{#                        <li><a href="#">License & uses</a></li>#}
+{#                        <li><a href="#">Events</a></li>#}
+{#                    </ul>#}
+{#                </div>#}
+
+            </div>
+            <!-- copyright -->
+            <p class="copy-footer-29 text-center mt-5 pt-lg-3">© 2024 Educity Bookstore. All rights reserved.
+                 </p>
+        </div>
+            </div>
+        </div>
+    </footer>
+    <!-- //footer -->
+
+    <!-- Js scripts -->
+    <!-- move top -->
+{#   / <button onclick="topFunction()" id="movetop" title="Go to top">#}
+        <span class="fas fa-level-up-alt" aria-hidden="true"></span>
+    </button>
+    <script>
+        // When the user scrolls down 20px from the top of the document, show the button
+        window.onscroll = function () {
+            scrollFunction()
+        };
+
+        function scrollFunction() {
+            if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                document.getElementById("movetop").style.display = "block";
+            } else {
+                document.getElementById("movetop").style.display = "none";
+            }
+        }
+
+        // When the user clicks on the button, scroll to the top of the document
+        function topFunction() {
+            document.body.scrollTop = 0;
+            document.documentElement.scrollTop = 0;
+        }
+    </script>
+    <!-- //move top -->
+
+    <!-- common jquery plugin -->
+    <script src="/static/public/assets/js/jquery-3.3.1.min.js"></script>
+    <!-- //common jquery plugin -->
+
+    <!-- banner slider -->
+    <script src="/static/public/assets/js/slideshow.js"></script>
+    <!-- //banner slider -->
+
+    <!-- for services carousel slider -->
+    <script src="/static/public/assets/js/owl.carousel.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.owl-three').owlCarousel({
+                loop: true,
+                stagePadding: 20,
+                margin: 20,
+                autoplay: true,
+                autoplayTimeout: 5000,
+                autoplaySpeed: 1000,
+                autoplayHoverPause: false,
+                nav: true,
+                responsive: {
+                    0: {
+                        items: 1
+                    },
+                    600: {
+                        items: 2
+                    },
+                    991: {
+                        items: 3
+                    },
+                    1200: {
+                        items: 4
+                    }
+                }
+            })
+        })
+    </script>
+    <!-- //for services carousel slider -->
+
+    <!-- counter-->
+    <script src="/static/public/assets/js/counter.js"></script>
+    <!-- //counter-->
+
+    <!-- theme switch js (light and dark)-->
+    <script src="/static/public/assets/js/theme-change.js"></script>
+    <!-- //theme switch js (light and dark)-->
+
+    <!-- MENU-JS -->
+    <script>
+        $(window).on("scroll", function () {
+            var scroll = $(window).scrollTop();
+
+            if (scroll >= 80) {
+                $("#site-header").addClass("nav-fixed");
+            } else {
+                $("#site-header").removeClass("nav-fixed");
+            }
+        });
+
+        //Main navigation Active Class Add Remove
+        $(".navbar-toggler").on("click", function () {
+            $("header").toggleClass("active");
+        });
+        $(document).on("ready", function () {
+            if ($(window).width() > 991) {
+                $("header").removeClass("active");
+            }
+            $(window).on("resize", function () {
+                if ($(window).width() > 991) {
+                    $("header").removeClass("active");
+                }
+            });
+        });
+    </script>
+    <!-- //MENU-JS -->
+
+    <!-- disable body scroll which navbar is in active -->
+    <script>
+        $(function () {
+            $('.navbar-toggler').click(function () {
+                $('body').toggleClass('noscroll');
+            })
+        });
+    </script>
+    <!-- //disable body scroll which navbar is in active -->
+
+    <!-- bootstrap -->
+    <script src="/static/public/assets/js/bootstrap.min.js"></script>
+    <!-- //bootstrap -->
+    <!-- //Js scripts -->
+</body>
+
+</html>

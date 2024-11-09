@@ -1,0 +1,119 @@
+#leap year
+def leap(l,u):
+ print("Leap years between",l,"and",u,":")
+ for i in range(l,u+1):
+    if(i%4==0)and(i%100!=0)or(i%400==0):
+        print(i)
+a=int(input("Enter first year:"))
+b=int(input("Enter second year:"))
+leap(a,b)
+
+
+#using list comprehension
+
+n=input("Enter numbers with comma seperation:").split(",")
+a=map(int,n)
+new1=[x for x in a if x>0]
+print("positive integers from the given list are: ",new1)
+d=map(int,n)
+
+#Square of n numbers
+new2=[x**2 for x in d]
+print("square of numbes in the list is;",new2)
+
+#list of vowels
+vw=input("Enter the word: ")
+vw1=[x for x in vw]
+vowel=['a','e','i','o','u','A','E','I','O','U']
+vw2=[x for x in vw1 if x in vowel]
+print("vowel in",vw,"are",vw2)
+
+#ordinal values
+ordinal=[ord(x) for x in vw1]
+print("ordinal values of ",vw1,"are:",ordinal)
+
+
+
+#List of integers value greater than 100 store 'over'
+values=[]
+while True:
+    value=input("Enter an integer('enter stop to stop'):")
+    if value == 'stop':
+        break
+    elif int(value)>100:
+         values.append('over')
+    else:
+        values.append(int(value))
+print(values)
+
+
+#store a list of names count the occurences of 'a' within the list
+names=set(input('Enter list comma seperated:').split(','))
+print(names)
+count=0
+for name in names:
+    count+=name.count('a')
+print("Occurence of a in ",names,"is:",count)
+
+
+
+#replacing letters
+
+s=str(input("enter the string:"))
+a=s[0]
+b=s[1:]
+st=b.replace("o","$")
+sn=s[0]+st
+print ("new string is:",sn)
+
+
+#first and last character  interchange
+
+s=str(input("enter your string:"))
+a=s[0:2]
+b=s[-2:]
+print("the resulant string is :",a+s[-2:])
+
+
+#area of the circle
+print("area of the circle")
+from math import pi
+a=float(input("enter the radius of the circle:"))
+area=round(pi*a*a)
+print("area of the circle is =",area)
+
+#biggest of three number
+print("Biggest of two numbers")
+a=int(input("enter the first number:"))
+b=int(input("enter the second number:"))
+if a<b:
+    print("The greatest number is:",b)
+else:
+      print("The greatest number is",a)
+
+
+#GCD of two numbers
+
+x=float(input("Enter first number :"))
+y=float(input("Enter second number :"))
+if(x>y):
+    c=x
+else:
+    c=y
+while(c>0):
+    if(x%c==0)and(y%c==0):
+        print("GCD(",x,",",y,") =",c)
+        break;
+    c=c-1 
+
+#Remove even numbers from list
+n=input("Enter numbers with comma seperated:").split(",")
+a=map(int,n)
+list1=[x for x in a ]
+print("List 1",list1)
+for even in list1:
+    if(even%2==0):
+        list1.remove(even)
+print("List after removing even numbers=",list1)
+
+
